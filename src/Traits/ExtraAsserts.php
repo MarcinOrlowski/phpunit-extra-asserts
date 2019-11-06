@@ -54,7 +54,7 @@ trait AdditionalAsserts
         if (count($diff_array) !== $expected_diffs) {
             $this->printArray($diff_array);
         }
-        $this->assertCount($expected_diffs, count($diff_array));
+        $this->assertEquals($expected_diffs, count($diff_array));
     }
 
     /**

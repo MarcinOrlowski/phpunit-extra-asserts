@@ -1,7 +1,7 @@
 # PhpUnit extras #
 
-## CHANGE LOG ##
+## CHANGELOG ##
 
 * @dev
-   * Initial release
+  * Fixed incorrect assert in `assertArraysHaveDifferences()`.
 
