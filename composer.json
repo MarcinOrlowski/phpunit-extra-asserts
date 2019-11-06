@@ -22,7 +22,7 @@
     "issues": "https://github.com/MarcinOrlowski/phpunit-extra-asserts/issues"
   },
   "autoload": {
-    "psr-4": {
+    "psr4": {
       "MarcinOrlowski\\PhpunitExtraAsserts": "src/"
     }
   },
