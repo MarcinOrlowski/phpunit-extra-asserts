@@ -23,7 +23,7 @@
   },
   "autoload": {
     "psr-4": {
-      "MarcinOrlowski\\PhpunitExtraAsserts": "src/"
+      "MarcinOrlowski\\PhpunitExtraAsserts\\": "src/"
     }
   },
   "require": {
