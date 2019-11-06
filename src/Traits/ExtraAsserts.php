@@ -1,8 +1,8 @@
 <?php
 
-namespace MarcinOrlowski\PhpunitExtras\Traits;
+namespace MarcinOrlowski\PhpunitExtraAssets\Traits;
 
-trait AdditionalAsserts
+trait ExtraAsserts
 {
     /**
      * Verify that given array has specified key and it's value is according to expectations.
