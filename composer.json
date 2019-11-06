@@ -22,10 +22,9 @@
     "issues": "https://github.com/MarcinOrlowski/phpunit-extra-asserts/issues"
   },
   "autoload": {
-    "classmap": [
-      "src/",
-      "tests/"
-    ]
+    "psr-4": {
+      "MarcinOrlowski\\PhpunitExtraAsserts": "src/"
+    }
   },
   "require": {
     "php": ">=7.2.0"
