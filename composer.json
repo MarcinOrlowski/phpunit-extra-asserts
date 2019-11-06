@@ -1,0 +1,37 @@
+{
+  "name": "marcin-orlowski/phpunit-extra-asserts",
+  "description": "Extra asserts and helpers to make your unit testing easier.",
+  "homepage": "https://github.com/MarcinOrlowski/phpunit-extra-asserts",
+  "version": "1.0.2",
+  "keywords": [
+    "helper",
+    "tests",
+    "php7",
+    "phpunit",
+    "unittests",
+    "asserts"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marcin Orlowski",
+      "homepage": "http://MarcinOrlowski.com/"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/MarcinOrlowski/phpunit-extra-asserts/",
+    "issues": "https://github.com/MarcinOrlowski/phpunit-extra-asserts/issues"
+  },
+  "autoload": {
+    "classmap": [
+      "src/",
+      "tests/"
+    ]
+  },
+  "require": {
+    "php": ">=7.2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.0"
+  }
+}
