@@ -1,6 +1,6 @@
 <?php
 
-namespace MarcinOrlowski\PhpunitExtraAssets\Traits;
+namespace MarcinOrlowski\PhpunitExtraAsserts\Traits;
 
 trait ExtraAsserts
 {
