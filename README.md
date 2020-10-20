@@ -1,5 +1,9 @@
 # PhpUnit Extras Asserts #
 
+[![Latest Stable Version](https://poser.pugx.org/marcin-orlowski/phpunit-extra-asserts/v/stable)](https://packagist.org/packages/marcin-orlowski/phpunit-extra-asserts)
+[![License](https://poser.pugx.org/marcin-orlowski/phpunit-extra-asserts/license)](https://packagist.org/packages/marcin-orlowski/phpunit-extra-asserts)
+
+
 Collection of additional asserts to be used with PHP Unit testing framework.
 
 ## Installation ##
