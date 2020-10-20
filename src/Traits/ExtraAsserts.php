@@ -12,7 +12,6 @@ namespace MarcinOrlowski\PhpunitExtraAsserts\Traits;
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      https://github.com/MarcinOrlowski/phpunit-extra-asserts
  */
-
 trait ExtraAsserts
 {
 	/**
@@ -44,10 +43,23 @@ trait ExtraAsserts
 	/**
 	 * Asserts two arrays are equivalent.
 	 *
-	 * @param array $arrayA
-	 * @param array $arrayB
+	 * @obsolete Please use assertArrayEquals() instead
 	 */
 	public function assertArraysEquals(array $arrayA, array $arrayB): void
+	{
+		$this->assertArrayEquals($arrayA, $arrayB);
+	}
+
+	/**
+	 * Asserts arrayA equals $arrayB which means both array contain the
+	 * same content, yet the order of data is not taken into account.
+	 * For example ['foo','bar'] equals ['bar','foo'] as content is the same
+	 * ['key1'=>'foo','key2'=>'bar'] differs from ['key1'=>'bar','key2'=>'foo'].
+	 *
+	 * @param array $arrayA Array A to compare content of
+	 * @param array $arrayB Array B to compare content of
+	 */
+	public function assertArrayEquals(array $arrayA, array $arrayB): void
 	{
 		$this->assertArraysHaveDifferences($arrayA, $arrayB);
 	}
@@ -55,26 +67,27 @@ trait ExtraAsserts
 	/**
 	 * Asserts two arrays differ by exactly given number of elements.
 	 *
-	 * @param array $arrayA
-	 * @param array $arrayB
-	 * @param int   $diff_count
+	 * @param array $arrayA             Array A to compare content of
+	 * @param array $arrayB             Array B to compare content of
+	 * @param int   $allowed_diff_count Exact number of allowed differences to still consider arrays equal (default is 0)
 	 */
-	protected function assertArraysHaveDifferences(array $arrayA, array $arrayB, int $diff_count = 0): void
+	protected function assertArraysHaveDifferences(array $arrayA, array $arrayB,
+	                                               int $allowed_diff_count = 0): void
 	{
 		$diff_array = $this->arrayRecursiveDiff($arrayA, $arrayB);
-		if (count($diff_array) !== $diff_count) {
+		if (count($diff_array) !== $allowed_diff_count) {
 			$this->printArray($diff_array);
 		}
-		$this->assertEquals($diff_count, count($diff_array));
+		$this->assertEquals($allowed_diff_count, count($diff_array));
 	}
 
 	/**
 	 * Assert if keys from response have the same values as in original array.
 	 * Keys listed in $skip_keys are ignored.
 	 *
-	 * @param array $arrayA
-	 * @param array $arrayB
-	 * @param array $ignored_keys
+	 * @param array $arrayA       Array A to compare content of
+	 * @param array $arrayB       Array B to compare content of
+	 * @param array $ignored_keys Array of keys that will be ignored during comparision (as they never existed)
 	 */
 	public function massAssertEquals(array $arrayA, array $arrayB, array $ignored_keys = [])
 	{
@@ -101,7 +114,7 @@ trait ExtraAsserts
 	/**
 	 * Asserts provided string is valid RFC3339 timestamp string.
 	 *
-	 * @param string $stamp
+	 * @param string $stamp String to check against RFC3339 format
 	 */
 	public function assertRFC3339(string $stamp): void
 	{
@@ -183,9 +196,9 @@ trait ExtraAsserts
 	/**
 	 * Search given array for the first element containing given key/value pair
 	 *
-	 * @param array  $search_array
-	 * @param string $search_key
-	 * @param mixed  $search_value
+	 * @param array  $search_array Array to search
+	 * @param string $search_key   Key to look for
+	 * @param mixed  $search_value Value of $key to match
 	 *
 	 * @return mixed|null
 	 */
@@ -203,12 +216,13 @@ trait ExtraAsserts
 	/**
 	 * Prints content of given array in compacted form.
 	 *
-	 * @param array $array
-	 * @param int   $indent
+	 * @param array $array  Array to print
+	 * @param int   $indent Number of indent blocks (2 spaces per block) to add for each nest level
 	 */
 	public function printArray(array $array, int $indent = 0): void
 	{
-		$i = '  ' . substr('                        ', 0, $indent * 2);
+		$indent_block = '  ';
+		$i = str_repeat($indent_block, $indent + 1);
 
 		foreach ($array as $k => $v) {
 			if (is_array($v)) {
