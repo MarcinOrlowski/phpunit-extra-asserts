@@ -2,6 +2,9 @@
 
 ## CHANGELOG ##
 
+* 1.2.1 (2021-01-21)
+  * Code cleanup.
+
 * 1.2.0 (2020-10-20)
   * Deprecated `assertArraysEquals()`. Use `assertArrayEquals()` instead.
   * Updated documentation.

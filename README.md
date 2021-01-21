@@ -4,7 +4,7 @@
 [![License](https://poser.pugx.org/marcin-orlowski/phpunit-extra-asserts/license)](https://packagist.org/packages/marcin-orlowski/phpunit-extra-asserts)
 
 
-Collection of additional asserts to be used with PHP Unit testing framework.
+Collection of additional asserts to be used with [PHP Unit](https://phpunit.de) testing framework.
 
 ## Installation ##
 
@@ -16,20 +16,18 @@ Collection of additional asserts to be used with PHP Unit testing framework.
  base test class and all the methods should be simply available as `$this->assertName()`:
 
     class MyBaseTestClass extends ... {
-    
+
         use \MarcinOrlowski\PhpunitExtraAsserts\Traits\ExtraAsserts;
 
 
         [...]
-        
-        
+
         public function testSuccessWithExplicitNull(): void
         {
             [...]
-            
+
             $this->assertRFC3339($stamp);
         }
-        
     }
 
 
@@ -52,11 +50,10 @@ Collection of additional asserts to be used with PHP Unit testing framework.
 |---|---|
 |printArray(array $array, int $indent)|Prints content of given array in compacted form.|
 
-
 ----
 
 ## License ##
 
- * Written and copyrighted &copy;2014-2020 by Marcin Orlowski
- * PhpUnit-Extras is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+ * Written and copyrighted &copy;2014-2021 by Marcin Orlowski
+ * PhpUnit-Extra-Asserts is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 

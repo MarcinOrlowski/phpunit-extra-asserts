@@ -8,7 +8,7 @@ namespace MarcinOrlowski\PhpunitExtraAsserts\Traits;
  * @package   MarcinOrlowski\PhpunitExtraAsserts
  *
  * @author    Marcin Orlowski <mail (#) marcinOrlowski (.) com>
- * @copyright 2014-2020 Marcin Orlowski
+ * @copyright 2014-2021 Marcin Orlowski
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      https://github.com/MarcinOrlowski/phpunit-extra-asserts
  */
