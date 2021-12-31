@@ -2,6 +2,9 @@
 
 ## CHANGELOG ##
 
+* 1.3.0 (2022-01-08)
+  * Added `assertArrayContains()` and `assertArrayNotContains()` asserts. 
+
 * 1.2.1 (2021-01-21)
   * Code cleanup.
 
