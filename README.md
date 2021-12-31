@@ -57,6 +57,6 @@ Collection of additional asserts to be used with [PHP Unit](https://phpunit.de) 
 
 ## License ##
 
- * Written and copyrighted &copy;2014-2021 by Marcin Orlowski
+ * Written and copyrighted &copy;2014-2022 by Marcin Orlowski
  * PhpUnit-Extra-Asserts is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
