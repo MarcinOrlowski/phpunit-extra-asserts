@@ -2,7 +2,7 @@
 
 ## CHANGELOG ##
 
-* dev
+* 1.3.1 (2022-01-15)
   * Enforced global namespace for all PHP core method calls.
   * `printArray()` now properly deals with objects not implementing `__toString()`.
 
