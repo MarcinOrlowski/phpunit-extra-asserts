@@ -3,7 +3,8 @@
 ## CHANGELOG ##
 
 * dev
-  * Enforced global namespace for all PHP core method calls. 
+  * Enforced global namespace for all PHP core method calls.
+  * `printArray()` now properly deals with objects not implementing `__toString()`.
 
 * 1.3.0 (2021-12-31)
   * Added `assertArrayContains()` and `assertArrayNotContains()` asserts. 

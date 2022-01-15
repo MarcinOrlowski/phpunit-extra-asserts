@@ -259,6 +259,15 @@ trait ExtraAsserts
             if (\is_array($v)) {
                 echo "{$i}{$k}:\n";
                 $this->printArray($v, $indent + 1);
+            } elseif (is_object($v)) {
+                try {
+                    \get_class($v);
+                    $v = $v->__toString();
+                    echo "{$i}{$k}: {$v}\n";
+                } catch (\Throwable $e) {
+                    \get_class($v);
+                    echo "{$i}{$k}: {$v}\n";
+                }
             } else {
                 echo "{$i}{$k}: {$v}\n";
             }
