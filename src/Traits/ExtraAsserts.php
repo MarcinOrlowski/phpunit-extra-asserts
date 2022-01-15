@@ -122,14 +122,14 @@ trait ExtraAsserts
     public function massAssertEquals(array $arrayA, array $arrayB, array $ignored_keys = [])
     {
         foreach ($arrayA as $key => $value) {
-            if (in_array($key, $ignored_keys)) {
+            if (\in_array($key, $ignored_keys)) {
                 continue;
             }
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 $this->massAssertEquals($arrayA[ $key ], $arrayB[ $key ], $ignored_keys);
             } else {
-                $orig_type = gettype($arrayA[ $key ]);
-                $resp_type = gettype($arrayB[ $key ]);
+                $orig_type = \gettype($arrayA[ $key ]);
+                $resp_type = \gettype($arrayB[ $key ]);
 
                 if ($orig_type !== $resp_type) {
                     $msg = "Type mismatch for key '{$key}'. Expected '{$orig_type}', found '{$resp_type}'";
@@ -148,8 +148,8 @@ trait ExtraAsserts
      */
     public function assertRFC3339(string $stamp): void
     {
-        if (!is_string($stamp)) {
-            $type = gettype($stamp);
+        if (!\is_string($stamp)) {
+            $type = \gettype($stamp);
             $this->fail("'{$type}' provided. String required");
         }
 
@@ -165,9 +165,9 @@ trait ExtraAsserts
      */
     public function assertRFC3339OrNull(string $stamp): void
     {
-        if (is_null($stamp) === false) {
-            if (is_string($stamp) === fals) {
-                $type = gettype($stamp);
+        if (\is_null($stamp) === false) {
+            if (\is_string($stamp) === fals) {
+                $type = \gettype($stamp);
                 $this->fail("'{$type}' provided. String required");
             }
 
@@ -188,7 +188,7 @@ trait ExtraAsserts
     {
         $RFC3339_REGEXP = '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?((?:[\+\-]\d{2}:\d{2})|Z)$/i';
 
-        return preg_match($RFC3339_REGEXP, $stamp) === 1;
+        return \preg_match($RFC3339_REGEXP, $stamp) === 1;
     }
 
     /**
@@ -204,10 +204,10 @@ trait ExtraAsserts
         $return_array = [];
 
         foreach ($arrayA as $m_key => $m_value) {
-            if (array_key_exists($m_key, $arrayB)) {
-                if (is_array($m_value)) {
+            if (\array_key_exists($m_key, $arrayB)) {
+                if (\is_array($m_value)) {
                     $a_recursive_diff = $this->arrayRecursiveDiff($m_value, $arrayB[ $m_key ]);
-                    if (count($a_recursive_diff)) {
+                    if (\count($a_recursive_diff)) {
                         $return_array[ $m_key ] = $a_recursive_diff;
                     }
                 } else {
@@ -236,7 +236,7 @@ trait ExtraAsserts
                                                                $search_value)
     {
         foreach ($search_array as $array_element) {
-            if ((array_key_exists($search_key, $array_element)) && ($array_element[ $search_key ] == $search_value)) {
+            if ((\array_key_exists($search_key, $array_element)) && ($array_element[ $search_key ] == $search_value)) {
                 return $array_element;
             }
         }
@@ -253,10 +253,10 @@ trait ExtraAsserts
     public function printArray(array $array, int $indent = 0): void
     {
         $indent_block = '  ';
-        $i = str_repeat($indent_block, $indent + 1);
+        $i = \str_repeat($indent_block, $indent + 1);
 
         foreach ($array as $k => $v) {
-            if (is_array($v)) {
+            if (\is_array($v)) {
                 echo "{$i}{$k}:\n";
                 $this->printArray($v, $indent + 1);
             } else {

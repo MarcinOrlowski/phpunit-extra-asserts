@@ -2,6 +2,9 @@
 
 ## CHANGELOG ##
 
+* dev
+  * Enforced global namespace for all PHP core method calls. 
+
 * 1.3.0 (2021-12-31)
   * Added `assertArrayContains()` and `assertArrayNotContains()` asserts. 
 
