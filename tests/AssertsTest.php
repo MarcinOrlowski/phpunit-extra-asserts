@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * PHP Unit Extra Asserts
+ *
+ * @package   MarcinOrlowski\PhpUnitExtraAsserts
+ *
+ * @author    Marcin Orlowski <mail (#) marcinOrlowski (.) com>
+ * @copyright 2019-2022 Marcin Orlowski
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ * @link      https://github.com/MarcinOrlowski/phpunit-extra-asserts
+ */
+
 use PHPUnit\Framework\AssertionFailedError;
 
 class AssertsTest extends \PHPUnit\Framework\TestCase
