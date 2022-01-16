@@ -1,5 +1,8 @@
 # Example markdownlint YAML configuration with all properties set to their default value
 
+# Manual check:
+# $ markdownlint --config .markdownlint.yaml --ignore vendor --ignore LICENSE.md **/*.md
+
 # Default state for all rules
 default: true
 
