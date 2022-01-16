@@ -54,4 +54,5 @@ the methods should be simply available as `$this->assertName()`:
 ## License ##
 
 * Written and copyrighted &copy;2014-2022 by Marcin Orlowski
-* PhpUnit-Extra-Asserts is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+* PhpUnit-Extra-Asserts is open-sourced software licensed under
+  the [MIT license](http://opensource.org/licenses/MIT)
