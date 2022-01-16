@@ -44,7 +44,7 @@ jobs:
 
       - name: Debug
         shell: bash
-        run: ls -ld vendor/bin
+        run: ls -ld vendor/bin/*
 
       - name: "Checking Coding Standards..."
         shell: bash
