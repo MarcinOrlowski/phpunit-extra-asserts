@@ -32,6 +32,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^8.0",
-    "phpunit/php-code-coverage": "^7.0"
+    "phpunit/php-code-coverage": "^7.0",
+    "marcin-orlowski/coding-standard": "^2.2"
   }
 }
