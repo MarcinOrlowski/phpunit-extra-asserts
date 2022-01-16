@@ -20,13 +20,15 @@ trait ExtraAsserts
      * @param array       $array Array to inspect.
      * @param mixed       $item  Array item to look for.
      * @param string|null $msg   Custom error message to show if assertion fails.
+     *
+     * @deprecated Use arrayContains() instead.
      */
     public function assertArrayContains(array $array, $item, string $msg = null): void
     {
         if ($msg === null) {
             $msg = "Array does not contain element '$item'";
         }
-        $this->assertTrue(\in_array($item, $array, true), $msg);
+        $this->assertContains($item, $array, $msg);
     }
 
     /**
@@ -35,13 +37,15 @@ trait ExtraAsserts
      * @param array       $array Array to inspect.
      * @param mixed       $item  Array item to look for.
      * @param string|null $msg   Custom error message to show if assertion fails.
+     *
+     * @deprecated Use arrayNotContains() instead.
      */
     public function assertArrayNotContain(array $array, $item, string $msg = null): void
     {
         if ($msg === null) {
             $msg = "Array does contain element '$item'";
         }
-        $this->assertFalse(\in_array($item, $array, true), $msg);
+        $this->assertNotContains($item, $array, $msg);
     }
 
     /**
@@ -53,8 +57,10 @@ trait ExtraAsserts
      */
     public function assertArrayElement(string $key, array $array, string $expected_value): void
     {
-        $this->assertArrayHasKey($key, $array, var_export($array, true));
-        $this->assertEquals($expected_value, $array[ $key ], var_export($array, true));
+        $msg = "Key not found: {$key}";
+        $this->assertArrayHasKey($key, $array, $msg);
+        $msg = "Value for key '{$key}' is not as expected: {$expected_value}";
+        $this->assertEquals($expected_value, $array[ $key ], $msg);
     }
 
     /**s
@@ -73,15 +79,16 @@ trait ExtraAsserts
     /**
      * Asserts two arrays are equivalent.
      *
-     * @obsolete Please use assertArrayEquals() instead
+     * @deprecated Please use assertArrayEquals() instead
      */
     public function assertArraysEquals(array $arrayA, array $arrayB): void
     {
+        $this->addWarning("assertArraysEquals() is deprecated. Use assertArrayEquals() instead.");
         $this->assertArrayEquals($arrayA, $arrayB);
     }
 
     /**
-     * Asserts arrayA equals $arrayB which means both array contain the
+     * Asserts $arrayA equals $arrayB which means both array contain the
      * same content, yet the order of data is not taken into account.
      * For example ['foo','bar'] equals ['bar','foo'] as content is the same
      * ['key1'=>'foo','key2'=>'bar'] differs from ['key1'=>'bar','key2'=>'foo'].
@@ -99,16 +106,15 @@ trait ExtraAsserts
      *
      * @param array $arrayA             Array A to compare content of
      * @param array $arrayB             Array B to compare content of
-     * @param int   $allowed_diff_count Exact number of allowed differences to still consider arrays equal (default is 0)
+     * @param int   $allowed_diff_count Exact number of allowed differences to still
+     *                                  consider arrays equal (default is 0)
      */
     protected function assertArraysHaveDifferences(array $arrayA, array $arrayB,
                                                    int   $allowed_diff_count = 0): void
     {
-        $diff_array = $this->arrayRecursiveDiff($arrayA, $arrayB);
-        if (count($diff_array) !== $allowed_diff_count) {
-            $this->printArray($diff_array);
-        }
-        $this->assertEquals($allowed_diff_count, count($diff_array));
+        $diff_array_count = $this->arrayRecursiveDiffCount($arrayA, $arrayB);
+        $msg = "Expected {$allowed_diff_count} differences, found {$diff_array_count}";
+        $this->assertEquals($allowed_diff_count, $diff_array_count, $msg);
     }
 
     /**
@@ -117,24 +123,25 @@ trait ExtraAsserts
      *
      * @param array $arrayA       Array A to compare content of
      * @param array $arrayB       Array B to compare content of
-     * @param array $ignored_keys Array of keys that will be ignored during comparision (as they never existed)
+     * @param array $ignored_keys Array of keys that will be ignored during comparison
+     *                            (as they never existed)
      */
     public function massAssertEquals(array $arrayA, array $arrayB, array $ignored_keys = [])
     {
         foreach ($arrayA as $key => $value) {
-            if (\in_array($key, $ignored_keys)) {
+            if (\in_array($key, $ignored_keys, true)) {
                 continue;
             }
             if (\is_array($value)) {
-                $this->massAssertEquals($arrayA[ $key ], $arrayB[ $key ], $ignored_keys);
+                $this->massAssertEquals($value, $arrayB[ $key ], $ignored_keys);
             } else {
-                $orig_type = \gettype($arrayA[ $key ]);
+                $orig_type = \gettype($value);
                 $resp_type = \gettype($arrayB[ $key ]);
 
                 if ($orig_type !== $resp_type) {
                     $msg = "Type mismatch for key '{$key}'. Expected '{$orig_type}', found '{$resp_type}'";
                 } else {
-                    $msg = "Value mismatch for key '{$key}'. Expected '{$arrayA[$key]}', found '{$arrayB[$key]}'";
+                    $msg = "Value mismatch for key '{$key}'. Expected '{$value}', found '{$arrayB[$key]}'";
                 }
                 $this->assertEquals($value, $arrayB[ $key ], $msg);
             }
@@ -148,11 +155,6 @@ trait ExtraAsserts
      */
     public function assertRFC3339(string $stamp): void
     {
-        if (!\is_string($stamp)) {
-            $type = \gettype($stamp);
-            $this->fail("'{$type}' provided. String required");
-        }
-
         if ($this->validateRFC3339($stamp) === false) {
             $this->fail("'{$stamp}' is not a valid RFC3339 time stamp string");
         }
@@ -165,15 +167,8 @@ trait ExtraAsserts
      */
     public function assertRFC3339OrNull(string $stamp): void
     {
-        if (\is_null($stamp) === false) {
-            if (\is_string($stamp) === fals) {
-                $type = \gettype($stamp);
-                $this->fail("'{$type}' provided. String required");
-            }
-
-            if ($this->validateRFC3339($stamp) === false) {
-                $this->fail("'{$stamp}' is neither a valid RFC3339 time stamp string nor NULL");
-            }
+        if ($this->validateRFC3339($stamp) === false) {
+            $this->fail("'{$stamp}' is neither a valid RFC3339 time stamp string nor NULL");
         }
     }
 
@@ -191,37 +186,36 @@ trait ExtraAsserts
         return \preg_match($RFC3339_REGEXP, $stamp) === 1;
     }
 
-    /**
-     * Helper method to recursively diff two arrays
-     *
-     * @param array $arrayA
-     * @param array $arrayB
-     *
-     * @return array
-     */
-    protected function arrayRecursiveDiff(array $arrayA, array $arrayB): array
+    protected function arrayRecursiveDiffCount(array $array_a, array $array_b): int
     {
-        $return_array = [];
+        $diff_count = 0;
 
-        foreach ($arrayA as $m_key => $m_value) {
-            if (\array_key_exists($m_key, $arrayB)) {
-                if (\is_array($m_value)) {
-                    $a_recursive_diff = $this->arrayRecursiveDiff($m_value, $arrayB[ $m_key ]);
-                    if (\count($a_recursive_diff)) {
-                        $return_array[ $m_key ] = $a_recursive_diff;
-                    }
-                } else {
-                    if ($m_value !== $arrayB[ $m_key ]) {
-                        $return_array[ $m_key ] = $m_value;
-                    }
-                }
-            } else {
-                $return_array[ $m_key ] = $m_value;
+        $count_a = \count($array_a);
+        $count_b = \count($array_b);
+
+        // If array_b is bigger (more keys) then we can need to count key count
+        // difference separately. In case array_a is bigger, we detect missing
+        // keys in the loop below.
+        if ($count_b > $count_a) {
+            $diff_count = \abs($count_a - $count_b);
+        }
+
+        foreach ($array_a as $a_key => $a_value) {
+            if (!\array_key_exists($a_key, $array_b)) {
+                $diff_count++;
+                continue;
+            }
+
+            if (\is_array($a_value) && \is_array($array_b[ $a_key ])) {
+                $diff_count += $this->arrayRecursiveDiffCount($a_value, $array_b[ $a_key ]);
+            } elseif ($a_value !== $array_b[ $a_key ]) {
+                $diff_count++;
             }
         }
 
-        return $return_array;
+        return $diff_count;
     }
+
 
     /**
      * Search given array for the first element containing given key/value pair
@@ -236,13 +230,16 @@ trait ExtraAsserts
                                                                $search_value)
     {
         foreach ($search_array as $array_element) {
-            if ((\array_key_exists($search_key, $array_element)) && ($array_element[ $search_key ] == $search_value)) {
+            if ((\array_key_exists($search_key, $array_element))
+                && ($array_element[ $search_key ] === $search_value)) {
                 return $array_element;
             }
         }
 
         return null;
     }
+
+    /* ****************************************************************************************** */
 
     /**
      * Prints content of given array in compacted form.
