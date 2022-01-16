@@ -32,6 +32,9 @@ jobs:
     - name: "Running markdown linter..."
       uses: ruzickap/action-my-markdown-linter@v1
       with:
-        exclude: vendor
+        exclude: |
+          "vendor"
+          # LICENSE is externally sourced and we're not going to fix it.
+          "LICENSE.md"
         config_file: .markdownlint.yaml
 
