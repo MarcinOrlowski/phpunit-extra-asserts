@@ -2,7 +2,7 @@
 
 ## CHANGELOG ##
 
-* 2.0.0 (2022-01-16)
+* 2.0.0 (2022-01-17)
   * [BREAKING] Signature of `assertArraysHaveDifferences()` changed.
   * Fixed `assertArraysHaveDifferences()` (and indirectly `assertArrayEquals()`)
     failing to correctly detect differences when second array has more keys than first one.
@@ -11,6 +11,7 @@
     * `assertArrayContains()` (use `assertContains()` instead),
     * `assertArrayNotContains()` (use `assertNotContains()` instead),
     * `assertArraysEquals()` (use `assertArrayEquals()` instead).
+  * Corrected code style.
 
 * 1.3.1 (2022-01-15)
   * Enforced global namespace for all PHP core method calls.
