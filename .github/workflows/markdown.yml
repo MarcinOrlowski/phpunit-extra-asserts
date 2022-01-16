@@ -1,4 +1,17 @@
+##################################################################################
+#
+# PhpUnit Extra Asserts
+#
+# @package   MarcinOrlowski\PhpunitExtraAsserts
+#
+# @author    Marcin Orlowski <mail (#) marcinOrlowski (.) com>
+# @copyright 2019-2022 Marcin Orlowski
+# @license   http://www.opensource.org/licenses/mit-license.php MIT
+# @link      https://github.com/MarcinOrlowski/phpunit-extra-asserts
+#
 # Runs markdownlint on all *.md files
+#
+##################################################################################
 
 name: "Markdown Lint"
 

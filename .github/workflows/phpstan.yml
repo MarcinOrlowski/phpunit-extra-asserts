@@ -1,13 +1,13 @@
 ##################################################################################
 #
-# Laravel API Response Builder Static code analysis Github Action config
+# PhpUnit Extra Asserts
 #
-# @package   MarcinOrlowski\ResponseBuilder
+# @package   MarcinOrlowski\PhpunitExtraAsserts
 #
 # @author    Marcin Orlowski <mail (#) marcinOrlowski (.) com>
-# @copyright 2016-2022 Marcin Orlowski
+# @copyright 2019-2022 Marcin Orlowski
 # @license   http://www.opensource.org/licenses/mit-license.php MIT
-# @link      https://github.com/MarcinOrlowski/laravel-api-response-builder
+# @link      https://github.com/MarcinOrlowski/phpunit-extra-asserts
 #
 ##################################################################################
 
@@ -29,7 +29,6 @@ jobs:
       fail-fast: false
       matrix:
         # quotes are needed it is treated as a number and zero at decimal part is gone at runtime
-        laravel: ["8.x"]
         php: ["7.4", "8.0", "8.1"]
 
     runs-on: ubuntu-latest
@@ -37,10 +36,6 @@ jobs:
     steps:
       - name: "Checkout repository..."
         uses: actions/checkout@v2
-
-      - name: "Setup proper composer.json"
-        shell: bash
-        run: cp -f ".config/composer-laravel-${{ matrix.laravel }}.json" composer.json
 
       # https://github.com/marketplace/actions/composer-php-actions
       - name: "Installing dependencies..."
