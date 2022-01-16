@@ -93,11 +93,11 @@ class AssertsTest extends \PHPUnit\Framework\TestCase
     public function testAssertArrayElementPositive(): void
     {
         $array = $this->getDataForArrayContainTests();
-        $keyIdx = $this->getRandomInt(0, \count($array) - 1);
-        $expKey = \array_keys($array)[ $keyIdx ];
-        $expVal = $array[ $expKey ];
+        $key_idx = $this->getRandomInt(0, \count($array) - 1);
+        $exp_key = \array_keys($array)[ $key_idx ];
+        $exp_val = $array[ $exp_key ];
 
-        $this->assertArrayElement($expKey, $array, $expVal);
+        $this->assertArrayElement($exp_key, $array, $exp_val);
     }
 
     public function testAssertArrayElementNonExistingKey(): void
@@ -105,11 +105,11 @@ class AssertsTest extends \PHPUnit\Framework\TestCase
         $array = $this->getDataForArrayContainTests();
         $idx = $this->getRandomInt(0, \count($array) - 1);
 
-        $expKey = $this->getRandomString('nonExistingKey');
-        $expVal = $this->getRandomString('nonExistingVal');
+        $exp_key = $this->getRandomString('nonExistingKey');
+        $exp_val = $this->getRandomString('nonExistingVal');
 
         $this->expectException(AssertionFailedError::class);
-        $this->assertArrayElement($expKey, $array, $expVal);
+        $this->assertArrayElement($exp_key, $array, $exp_val);
     }
 
     public function testAssertArrayElementKeyValueMismatch(): void
@@ -117,12 +117,12 @@ class AssertsTest extends \PHPUnit\Framework\TestCase
         $array = $this->getDataForArrayContainTests();
         $idx = $this->getRandomInt(0, \count($array) - 1);
 
-        $keyIdx = $this->getRandomInt(0, \count($array) - 1);
-        $expKey = \array_keys($array)[ $keyIdx ];
-        $expVal = $this->getRandomString('nonExistingVal');
+        $key_idx = $this->getRandomInt(0, \count($array) - 1);
+        $exp_key = \array_keys($array)[ $key_idx ];
+        $exp_val = $this->getRandomString('nonExistingVal');
 
         $this->expectException(AssertionFailedError::class);
-        $this->assertArrayElement($expKey, $array, $expVal);
+        $this->assertArrayElement($exp_key, $array, $exp_val);
     }
 
     /* ****************************************************************************************** */
@@ -133,64 +133,64 @@ class AssertsTest extends \PHPUnit\Framework\TestCase
         $max = $this->getRandomInt($min * 2, $min * 4);
         $array = $this->getDataForArrayContainTests($min, $max);
 
-        $expKeys = [];
-        $expKeysCount = $this->getRandomInt($min, $min * 3);
-        for ($i = 0; $i < $expKeysCount; $i++) {
+        $exp_keys = [];
+        $exp_keys_count = $this->getRandomInt($min, $min * 3);
+        for ($i = 0; $i < $exp_keys_count; $i++) {
             $keys = \array_keys($array);
-            $expKeys = \array_slice($keys, 0, $expKeysCount);
+            $exp_keys = \array_slice($keys, 0, $exp_keys_count);
         }
 
-        $this->assertArrayHasKeys($expKeys, $array);
+        $this->assertArrayHasKeys($exp_keys, $array);
     }
 
     public function testAssertArrayHasKeysNegative(): void
     {
         $array = $this->getDataForArrayContainTests();
 
-        $nonExistingKeys = [
+        $non_existing_keys = [
             $this->getRandomString('nonExistingKey'),
         ];
 
         $this->expectException(AssertionFailedError::class);
-        $this->assertArrayHasKeys($nonExistingKeys, $array);
+        $this->assertArrayHasKeys($non_existing_keys, $array);
     }
 
     /* ****************************************************************************************** */
 
     public function testAssertArrayEquals(): void
     {
-        $arrayA = $this->getDataForArrayContainTests(10, 20);
-        $arrayB = $arrayA;
-        \asort($arrayB);
-        $this->assertArrayEquals($arrayA, $arrayA);
+        $array_a = $this->getDataForArrayContainTests(10, 20);
+        $array_b = $array_a;
+        \asort($array_b);
+        $this->assertArrayEquals($array_a, $array_a);
     }
 
     /**
      * Ensures arrays diff is calculated correctly if $arrayB is smaller
      * in size than $arrayA.
      */
-    public function testAssertArraysHaveDifferences_SubsetA(): void
+    public function testAssertArraysHaveDifferencesSubsetA(): void
     {
-        $arrayA = $this->getDataForArrayContainTests(10, 20);
-        $arrayB = \array_slice($arrayA, 0, \count($arrayA) / 2);
-        \asort($arrayB);
-        $diffCount = \abs(\count($arrayA) - \count($arrayB));
-        $this->assertArraysHaveDifferences($diffCount, $arrayA, $arrayB);
+        $array_a = $this->getDataForArrayContainTests(10, 20);
+        $array_b = \array_slice($array_a, 0, \count($array_a) / 2);
+        \asort($array_b);
+        $diff_count = \abs(\count($array_a) - \count($array_b));
+        $this->assertArraysHaveDifferences($diff_count, $array_a, $array_b);
     }
 
     /**
      * Ensures arrays diff is calculated correctly if $arrayA is smaller
      * in size than $arrayB.
      */
-    public function testAssertArraysHaveDifferences_SubsetB(): void
+    public function testAssertArraysHaveDifferencesSubsetB(): void
     {
-        $arrayB = $this->getDataForArrayContainTests(10, 20);
-        $arrayBSize = \count($arrayB);
-        $arrayA = \array_slice($arrayB, 0, $arrayBSize / 2);
-        $arrayASize = \count($arrayA);
-        \asort($arrayB);
-        $diffCount = \abs($arrayASize - $arrayBSize);
-        $this->assertArraysHaveDifferences($diffCount, $arrayA, $arrayB);
+        $array_b = $this->getDataForArrayContainTests(10, 20);
+        $array_b_size = \count($array_b);
+        $array_a = \array_slice($array_b, 0, $array_b_size / 2);
+        $array_a_size = \count($array_a);
+        \asort($array_b);
+        $diff_count = \abs($array_a_size - $array_b_size);
+        $this->assertArraysHaveDifferences($diff_count, $array_a, $array_b);
     }
 
     /* ****************************************************************************************** */

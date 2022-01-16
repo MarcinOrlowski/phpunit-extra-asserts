@@ -85,11 +85,11 @@ trait ExtraAsserts
      *
      * @deprecated Please use assertArrayEquals() instead
      */
-    public function assertArraysEquals(array $arrayA, array $arrayB): void
+    public function assertArraysEquals(array $array_a, array $array_b): void
     {
         $this->deprecated('assertArraysEquals', 'assertArrayEquals');
 
-        $this->assertArrayEquals($arrayA, $arrayB);
+        $this->assertArrayEquals($array_a, $array_b);
     }
 
     /**
@@ -98,12 +98,12 @@ trait ExtraAsserts
      * For example ['foo','bar'] equals ['bar','foo'] as content is the same
      * ['key1'=>'foo','key2'=>'bar'] differs from ['key1'=>'bar','key2'=>'foo'].
      *
-     * @param array $arrayA Array A to compare content of
-     * @param array $arrayB Array B to compare content of
+     * @param array $array_a Array A to compare content of
+     * @param array $array_b Array B to compare content of
      */
-    public function assertArrayEquals(array $arrayA, array $arrayB): void
+    public function assertArrayEquals(array $array_a, array $array_b): void
     {
-        $this->assertArraysHaveDifferences(0, $arrayA, $arrayB);
+        $this->assertArraysHaveDifferences(0, $array_a, $array_b);
     }
 
     /**
@@ -115,13 +115,13 @@ trait ExtraAsserts
      * ['key1'=>'foo','key2'=>'bar'] differs from ['key1'=>'bar','key2'=>'foo'].
      *
      * @param int   $expected Expected number of differences between arrays
-     * @param array $arrayA   Array A to compare content of
-     * @param array $arrayB   Array B to compare content of
+     * @param array $array_a  Array A to compare content of
+     * @param array $array_b  Array B to compare content of
      */
     protected function assertArraysHaveDifferences(int   $expected,
-                                                   array $arrayA, array $arrayB): void
+                                                   array $array_a, array $array_b): void
     {
-        $diff_array_count = $this->arrayRecursiveDiffCount($arrayA, $arrayB);
+        $diff_array_count = $this->arrayRecursiveDiffCount($array_a, $array_b);
         $msg = "Expected {$expected} differences, found {$diff_array_count}";
         $this->assertEquals($expected, $diff_array_count, $msg);
     }
@@ -130,29 +130,29 @@ trait ExtraAsserts
      * Assert if keys from response have the same values as in original array.
      * Keys listed in $skip_keys are ignored.
      *
-     * @param array $arrayA       Array A to compare content of
-     * @param array $arrayB       Array B to compare content of
+     * @param array $array_a      Array A to compare content of
+     * @param array $array_b      Array B to compare content of
      * @param array $ignored_keys Array of keys that will be ignored during comparison
      *                            (as they never existed)
      */
-    public function massAssertEquals(array $arrayA, array $arrayB, array $ignored_keys = [])
+    public function massAssertEquals(array $array_a, array $array_b, array $ignored_keys = [])
     {
-        foreach ($arrayA as $key => $value) {
+        foreach ($array_a as $key => $value) {
             if (\in_array($key, $ignored_keys, true)) {
                 continue;
             }
             if (\is_array($value)) {
-                $this->massAssertEquals($value, $arrayB[ $key ], $ignored_keys);
+                $this->massAssertEquals($value, $array_b[ $key ], $ignored_keys);
             } else {
                 $orig_type = \gettype($value);
-                $resp_type = \gettype($arrayB[ $key ]);
+                $resp_type = \gettype($array_b[ $key ]);
 
                 if ($orig_type !== $resp_type) {
                     $msg = "Type mismatch for key '{$key}'. Expected '{$orig_type}', found '{$resp_type}'";
                 } else {
-                    $msg = "Value mismatch for key '{$key}'. Expected '{$value}', found '{$arrayB[$key]}'";
+                    $msg = "Value mismatch for key '{$key}'. Expected '{$value}', found '{$array_b[$key]}'";
                 }
-                $this->assertEquals($value, $arrayB[ $key ], $msg);
+                $this->assertEquals($value, $array_b[ $key ], $msg);
             }
         }
     }
