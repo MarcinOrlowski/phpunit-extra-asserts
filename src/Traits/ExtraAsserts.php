@@ -25,6 +25,8 @@ trait ExtraAsserts
      */
     public function assertArrayContains(array $array, $item, string $msg = null): void
     {
+        $this->deprecated('assertArrayContains', 'arrayContains');
+
         if ($msg === null) {
             $msg = "Array does not contain element '$item'";
         }
@@ -42,6 +44,8 @@ trait ExtraAsserts
      */
     public function assertArrayNotContain(array $array, $item, string $msg = null): void
     {
+        $this->deprecated('assertArrayNotContain', 'arrayNotContains');
+
         if ($msg === null) {
             $msg = "Array does contain element '$item'";
         }
@@ -83,7 +87,8 @@ trait ExtraAsserts
      */
     public function assertArraysEquals(array $arrayA, array $arrayB): void
     {
-        $this->addWarning("assertArraysEquals() is deprecated. Use assertArrayEquals() instead.");
+        $this->deprecated('assertArraysEquals', 'assertArrayEquals');
+
         $this->assertArrayEquals($arrayA, $arrayB);
     }
 
@@ -98,23 +103,27 @@ trait ExtraAsserts
      */
     public function assertArrayEquals(array $arrayA, array $arrayB): void
     {
-        $this->assertArraysHaveDifferences($arrayA, $arrayB);
+        $this->assertArraysHaveDifferences(0, $arrayA, $arrayB);
     }
 
     /**
      * Asserts two arrays differ by exactly given number of elements.
      *
-     * @param array $arrayA             Array A to compare content of
-     * @param array $arrayB             Array B to compare content of
-     * @param int   $allowed_diff_count Exact number of allowed differences to still
-     *                                  consider arrays equal (default is 0)
+     * Asserts $arrayA equals $arrayB which means both array contain the
+     * same content, yet the order of data is not taken into account.
+     * For example ['foo','bar'] equals ['bar','foo'] as content is the same
+     * ['key1'=>'foo','key2'=>'bar'] differs from ['key1'=>'bar','key2'=>'foo'].
+     *
+     * @param int   $expected Expected number of differences between arrays
+     * @param array $arrayA   Array A to compare content of
+     * @param array $arrayB   Array B to compare content of
      */
-    protected function assertArraysHaveDifferences(array $arrayA, array $arrayB,
-                                                   int   $allowed_diff_count = 0): void
+    protected function assertArraysHaveDifferences(int   $expected,
+                                                   array $arrayA, array $arrayB): void
     {
         $diff_array_count = $this->arrayRecursiveDiffCount($arrayA, $arrayB);
-        $msg = "Expected {$allowed_diff_count} differences, found {$diff_array_count}";
-        $this->assertEquals($allowed_diff_count, $diff_array_count, $msg);
+        $msg = "Expected {$expected} differences, found {$diff_array_count}";
+        $this->assertEquals($expected, $diff_array_count, $msg);
     }
 
     /**
@@ -216,29 +225,6 @@ trait ExtraAsserts
         return $diff_count;
     }
 
-
-    /**
-     * Search given array for the first element containing given key/value pair
-     *
-     * @param array  $search_array Array to search
-     * @param string $search_key   Key to look for
-     * @param mixed  $search_value Value of $key to match
-     *
-     * @return mixed|null
-     */
-    protected function findInArrayElementContainKeyValue(array $search_array, string $search_key,
-                                                               $search_value)
-    {
-        foreach ($search_array as $array_element) {
-            if ((\array_key_exists($search_key, $array_element))
-                && ($array_element[ $search_key ] === $search_value)) {
-                return $array_element;
-            }
-        }
-
-        return null;
-    }
-
     /* ****************************************************************************************** */
 
     /**
@@ -271,4 +257,22 @@ trait ExtraAsserts
         }
     }
 
-}
+    /**
+     * Shows depreciation message (for deprecated asserts).
+     *
+     * @param string  $method_name     Name of method being deprecatad.
+     * @param ?string $new_method_name Name of method to use instead or @NULL if there's none.
+     *
+     * @return void
+     */
+    protected function deprecated(string $method_name, ?string $new_method_name): void
+    {
+        $msg = ["Deprecated assert {$method_name}()."];
+        if ($new_method_name !== null) {
+            $msg[] = "Use {$new_method_name}() instead.";
+        }
+        $this->addWarning(\implode(' ', $msg));
+
+    }
+
+} // end of trait

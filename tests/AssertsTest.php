@@ -164,7 +164,7 @@ class AssertsTest extends \PHPUnit\Framework\TestCase
         $arrayB = \array_slice($arrayA, 0, \count($arrayA) / 2);
         \asort($arrayB);
         $diffCount = \abs(\count($arrayA) - \count($arrayB));
-        $this->assertArraysHaveDifferences($arrayA, $arrayB, $diffCount);
+        $this->assertArraysHaveDifferences($diffCount, $arrayA, $arrayB);
     }
 
     /**
@@ -179,7 +179,7 @@ class AssertsTest extends \PHPUnit\Framework\TestCase
         $arrayASize = \count($arrayA);
         \asort($arrayB);
         $diffCount = \abs($arrayASize - $arrayBSize);
-        $this->assertArraysHaveDifferences($arrayA, $arrayB, $diffCount);
+        $this->assertArraysHaveDifferences($diffCount, $arrayA, $arrayB);
     }
 
     /* ****************************************************************************************** */
