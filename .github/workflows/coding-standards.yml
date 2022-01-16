@@ -42,6 +42,10 @@ jobs:
           php_version: "${{ matrix.php }}"
           dev: yes
 
+      - name: Debug
+        shell: bash
+        run: ls -ld vendor/bin
+
       - name: "Checking Coding Standards..."
         shell: bash
         run: vendor/bin/phpcs
