@@ -25,25 +25,24 @@ class Validator
      * Checks if $item (of name $key) is of type that is include in $allowed_types (there's `OR` connection
      * between specified types).
      *
-     * @param string          $varName      Label or name of the variable to use exception message.
-     * @param mixed           $value        Variable to be asserted.
-     * @param string|string[] $allowedTypes Array of allowed types for $value, i.e. [Type::INTEGER]
-     * @param string          $exClass      Name of exception class (which implements
-     *                                      Ex\InvalidTypeExceptionContract) to be used when assertion fails.
-     *                                      In that case object of that class will be instantiated and
-     *                                      thrown.
+     * @param mixed           $value         Variable to be asserted.
+     * @param string|string[] $allowed_types Array of allowed types for $value, i.e. [Type::INTEGER]
+     * @param string          $ex_class      Name of exception class (which implements
+     *                                       Ex\InvalidTypeExceptionContract) to be used when assertion fails.
+     *                                       In that case object of that class will be instantiated and
+     *                                       thrown.
+     * @param string|null     $var_name      Label or name of the variable to use exception message.
      *
-     * @throws Ex\InvalidTypeExceptionContract
-     * @throws \InvalidArgumentException
      */
-    public static function assertIsType(string       $varName, mixed $value,
-                                        string|array $allowedTypes,
-                                        string       $exClass = Ex\InvalidTypeException::class): void
+    public static function assertIsType(mixed        $value,
+                                        string|array $allowed_types,
+                                        string       $ex_class = Ex\InvalidTypeException::class,
+                                        ?string      $var_name = null): void
     {
-        $allowedTypes = (array)$allowedTypes;
+        $allowed_types = (array)$allowed_types;
 
         // Type::EXISTING_CLASS is artificial type, so we need separate logic to handle it.
-        $filteredAllowedTypes = $allowedTypes;
+        $filteredAllowedTypes = $allowed_types;
         $idx = \array_search(Type::EXISTING_CLASS, $filteredAllowedTypes, true);
         if ($idx !== false) {
             // Remove the type, so gettype() test loop won't see it.
@@ -60,20 +59,23 @@ class Validator
         }
         if (!\in_array($type, $filteredAllowedTypes, true)) {
             // FIXME we need to ensure $exClass implements Ex\InvalidTypeExceptionContract at some point.
-            throw static::buildException($varName, $type, $filteredAllowedTypes);
+            throw static::buildException($ex_class, $type, $filteredAllowedTypes, $var_name);
         }
     }
 
     /**
-     * @param string          $varName      Name of the variable (to be included in error message)
-     * @param string          $type         Current type of the $value
-     * @param string|string[] $allowedTypes Array of allowed types (Type::*) or single element.
+     *
+     * @param string          $type          Current type of the $value
+     * @param string|string[] $allowed_types Array of allowed types (Type::*) or single element.
+     * @param string|null     $val_name      Name of the variable (to be included in error message)
      */
-    protected static function buildException(string       $varName, string $type,
-                                             string|array $allowedTypes): \RuntimeException
+    protected static function buildException(string       $ex_class,
+                                             string       $type,
+                                             string|array $allowed_types,
+                                             string       $val_name = null): \RuntimeException
     {
-        $allowedTypes = (array)$allowedTypes;
-        switch (\count($allowedTypes)) {
+        $allowed_types = (array)$allowed_types;
+        switch (\count($allowed_types)) {
             case 0:
                 throw new \RuntimeException('allowedTypes array must not be empty.');
 
@@ -86,8 +88,8 @@ class Validator
                 break;
         }
 
-        return new \RuntimeException(
-            \sprintf($msg, $varName, \implode(', ', $allowedTypes), $type)
+        return new $ex_class(
+            \sprintf($msg, $val_name, \implode(', ', $allowed_types), $type)
         );
     }
 

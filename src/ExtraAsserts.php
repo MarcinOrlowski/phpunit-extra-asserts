@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace MarcinOrlowski\PhpunitExtraAsserts;
 
-use PHPUnit\Framework\Assert;
 use MarcinOrlowski\PhpunitExtraAsserts\Exception as Ex;
+use PHPUnit\Framework\Assert;
 
 class ExtraAsserts
 {
@@ -71,7 +71,7 @@ class ExtraAsserts
      * @param array $array_a  Array A to compare content of
      * @param array $array_b  Array B to compare content of
      */
-    protected static function assertArraysHaveDifferences(int   $expected,
+    public static function assertArraysHaveDifferences(int   $expected,
                                                           array $array_a, array $array_b): void
     {
         $diff_array_count = static::arrayRecursiveDiffCount($array_a, $array_b);
@@ -215,7 +215,7 @@ class ExtraAsserts
      */
     public static function assertIsArray(mixed $value, ?string $var_name = null): void
     {
-        Validator::assertIsType($var_name, $value, [Type::ARRAY], Ex\NotArrayException::class);
+        Validator::assertIsType($value, [Type::ARRAY], Ex\NotArrayException::class, $var_name);
     }
 
     /**
@@ -228,7 +228,7 @@ class ExtraAsserts
      */
     public static function assertIsBool(mixed $value, ?string $var_name = null): void
     {
-        Validator::assertIsType($var_name, $value, [Type::BOOL], Ex\NotBooleanException::class);
+        Validator::assertIsType($value, [Type::BOOL], Ex\NotBooleanException::class, $var_name);
     }
 
     /**
@@ -242,7 +242,7 @@ class ExtraAsserts
      */
     public static function assertIsFloat(mixed $value, ?string $var_name = null): void
     {
-        Validator::assertIsType($var_name, $value, [Type::FLOAT], Ex\NotStringException::class);
+        Validator::assertIsType($value, [Type::FLOAT], Ex\NotFloatException::class, $var_name);
     }
 
     /**
@@ -253,24 +253,25 @@ class ExtraAsserts
      *                              build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
+     * @throws Ex\NotIntegerException
      */
     public static function assertIsInteger(mixed $value, ?string $var_name = null): void
     {
-        Validator::assertIsType($var_name, $value, [Type::INTEGER], Ex\NotIntegerException::class);
+        Validator::assertIsType($value, [Type::INTEGER], Ex\NotIntegerException::class, $var_name);
     }
 
     /**
      * Checks if given $val is an object
      *
-     * @param mixed       $value   Variable to be asserted.
-     * @param string|null $varName Optional name of the variable the content is being asserted for (used to
+     * @param mixed       $value    Variable to be asserted.
+     * @param string|null $var_name Optional name of the variable the content is being asserted for (used to
      *                             build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsObject(mixed $value, ?string $varName = null): void
+    public static function assertIsObject(mixed $value, ?string $var_name = null): void
     {
-        Validator::assertIsType($varName, $value, [Type::OBJECT], Ex\NotObjectException::class);
+        Validator::assertIsType($value, [Type::OBJECT], Ex\NotObjectException::class, $var_name);
     }
 
     /**
@@ -299,7 +300,7 @@ class ExtraAsserts
      */
     public static function assertIsString(mixed $value, ?string $var_name = null): void
     {
-        Validator::assertIsType($var_name, $value, [Type::STRING], Ex\NotStringException::class);
+        Validator::assertIsType($value, [Type::STRING], Ex\NotStringException::class, $var_name);
     }
 
     /* **************************************************************************************************** */
