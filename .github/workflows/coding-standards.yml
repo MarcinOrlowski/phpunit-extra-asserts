@@ -44,11 +44,11 @@ jobs:
 
       - name: "Checking Coding Standards..."
         shell: bash
-        run: ls -ld vendor/bin
+        run: ls -ld vendor/bin/*
 
       - name: "Checking Coding Standards..."
         shell: bash
-        run: ls -ld vendor
+        run: ls -ld vendor/*
 
       - name: "Checking Coding Standards..."
         shell: bash
