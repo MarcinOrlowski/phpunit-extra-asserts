@@ -2,11 +2,11 @@
   "name": "marcin-orlowski/phpunit-extra-asserts",
   "description": "Extra asserts and helpers to make your unit testing easier.",
   "homepage": "https://github.com/MarcinOrlowski/phpunit-extra-asserts",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "keywords": [
     "helper",
     "tests",
-    "php7",
+    "php8",
     "phpunit",
     "unittests",
     "asserts"
@@ -28,11 +28,10 @@
     }
   },
   "require": {
-    "php": ">=7.2.0"
+    "php": "^7.4||^8.0||^8.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^8.0",
-    "phpunit/php-code-coverage": "^7.0",
-    "marcin-orlowski/coding-standard": "^2.2"
+    "phpunit/phpunit": "^9.0",
+    "phpunit/php-code-coverage": "^9.0"
   }
 }

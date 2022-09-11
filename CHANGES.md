@@ -2,6 +2,14 @@
 
 ## CHANGELOG ##
 
+* 3.0.0 (2022-09-11)
+  * [BREAKING] Changed package structure and method access.
+  * Requires PHP 7.4 or newer.
+  * Removed all deprecated methods.
+  * Extra asserts are no longer a `Trait` but regular class.
+  * All asserts are now `static` methods.
+  * Incorporated `TypeValidator` and related data type asserts into this package.
+
 * 2.0.0 (2022-01-17)
   * [BREAKING] Signature of `assertArraysHaveDifferences()` changed.
   * Fixed `assertArraysHaveDifferences()` (and indirectly `assertArrayEquals()`)
