@@ -29,7 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         # quotes are needed it is treated as a number and zero at decimal part is gone at runtime
-        php: ["7.2", "7.3", "7.4", "8.0", "8.1"]
+        php: ["7.4", "8.0", "8.1"]
 
     runs-on: ubuntu-latest
 
@@ -51,3 +51,4 @@ jobs:
         with:
           bootstrap: "vendor/autoload.php"
           configuration: "tests/phpunit.xml"
+
