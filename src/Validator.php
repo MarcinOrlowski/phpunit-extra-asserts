@@ -91,34 +91,6 @@ class Validator
         );
     }
 
-    /* **************************************************************************************************** */
-    /**
-     * @param string $var_name Label or name of the variable to be used in exception message (if thrown).
-     * @param mixed  $value    Variable to be asserted.
-     * @param int    $min      Min allowed value (inclusive)
-     * @param int    $max      Max allowed value (inclusive)
-     *
-     * @throws \InvalidArgumentException
-     * @throws Ex\OutOfBoundsException
-     * @throws Ex\NotIntegerException
-     * @throws Ex\InvalidTypeException
-     */
-    public static function assertIsIntRange(string $var_name, mixed $value, int $min, int $max): void
-    {
-        self::assertIsInt($var_name, $value);
-
-        if ($min > $max) {
-            throw new \InvalidArgumentException(
-                \sprintf('%s: Invalid range for "%s". Ensure bound values are not swapped.',
-                    __FUNCTION__, $var_name));
-        }
-
-        if (($min > $value) || ($value > $max)) {
-            throw new Ex\OutOfBoundsException(
-                \sprintf('Value of "%s" (%d) is out of bounds. Must be between %d-%d inclusive.',
-                    $var_name, $value, $min, $max));
-        }
-    }
 
     /* **************************************************************************************************** */
 
