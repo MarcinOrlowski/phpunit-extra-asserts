@@ -19,14 +19,16 @@ class InvalidTypeException extends \Exception implements InvalidTypeExceptionCon
     /**
      * NotAnTypeBaseException constructor.
      *
-     * @param string $var_name      Name of the variable (to be included in error message)
-     * @param array  $allowed_types Array of allowed types [Type::*]
-     * @param string $type          Current type of the $value
+     * @param string      $type          Current type of the $value
+     * @param array       $allowed_types Array of allowed types [Type::*]
+     * @param string|null $var_name      Name of the variable (to be included in error message)
      *
-     * @throws \InvalidArgumentException
      */
-    public function __construct(string $var_name, string $type, array $allowed_types)
+    public function __construct(string $type, array $allowed_types, ?string $var_name = null)
     {
+
+        $var_name ??= 'ITEM';
+
         switch (\count($allowed_types)) {
             case 0:
                 throw new \InvalidArgumentException('allowed_types array must not be empty.');

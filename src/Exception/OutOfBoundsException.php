@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace MarcinOrlowski\PhpunitExtraAsserts\Exception;
 
-final class OutOfBoundsException extends \OutOfBoundsException
+final class OutOfBoundsException extends InvalidTypeException
 {
-	// empty
+    // empty
 }

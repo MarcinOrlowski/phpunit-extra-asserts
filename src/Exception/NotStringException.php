@@ -16,5 +16,5 @@ namespace MarcinOrlowski\PhpunitExtraAsserts\Exception;
 
 final class NotStringException extends InvalidTypeException
 {
-	// empty
+    // empty
 }
