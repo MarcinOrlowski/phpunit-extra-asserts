@@ -2,6 +2,10 @@
 
 ## CHANGELOG ##
 
+* 3.1.0 (2022-09-11)
+  * Added `Generator` class to factory random values of various types.
+  * Added `Bridge` class to manipulate hidden methods/properties/constants.
+
 * 3.0.0 (2022-09-11)
   * [BREAKING] Changed package structure and method access.
   * Requires PHP 7.4 or newer.
