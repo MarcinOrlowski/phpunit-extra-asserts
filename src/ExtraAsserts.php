@@ -72,7 +72,7 @@ class ExtraAsserts
      * @param array $array_b  Array B to compare content of
      */
     public static function assertArraysHaveDifferences(int   $expected,
-                                                          array $array_a, array $array_b): void
+                                                       array $array_a, array $array_b): void
     {
         $diff_array_count = static::arrayRecursiveDiffCount($array_a, $array_b);
         $msg = "Expected {$expected} differences, found {$diff_array_count}";
@@ -265,7 +265,7 @@ class ExtraAsserts
      *
      * @param mixed       $value    Variable to be asserted.
      * @param string|null $var_name Optional name of the variable the content is being asserted for (used to
-     *                             build error message only).
+     *                              build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
@@ -283,10 +283,9 @@ class ExtraAsserts
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsObjectOrExistingClass(string|object $cls_or_obj,
-                                                         ?string       $var_name = null): void
+    public static function assertIsObjectOrExistingClass($cls_or_obj, ?string $var_name = null): void
     {
-        Validator::assertIsType($var_name, $cls_or_obj, [Type::EXISTING_CLASS, Type::OBJECT]);
+        Validator::assertIsType($cls_or_obj, [Type::EXISTING_CLASS, Type::OBJECT], $var_name);
     }
 
     /**

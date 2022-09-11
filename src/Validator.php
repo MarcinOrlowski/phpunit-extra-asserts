@@ -34,10 +34,10 @@ class Validator
      * @param string|null     $var_name      Label or name of the variable to use exception message.
      *
      */
-    public static function assertIsType(mixed        $value,
-                                        string|array $allowed_types,
-                                        string       $ex_class = Ex\InvalidTypeException::class,
-                                        ?string      $var_name = null): void
+    public static function assertIsType(mixed   $value,
+                                                $allowed_types,
+                                        string  $ex_class = Ex\InvalidTypeException::class,
+                                        ?string $var_name = null): void
     {
         $allowed_types = (array)$allowed_types;
 
@@ -69,15 +69,15 @@ class Validator
      * @param string|string[] $allowed_types Array of allowed types (Type::*) or single element.
      * @param string|null     $val_name      Name of the variable (to be included in error message)
      */
-    protected static function buildException(string       $ex_class,
-                                             string       $type,
-                                             string|array $allowed_types,
-                                             string       $val_name = null): \RuntimeException
+    protected static function buildException(string $ex_class,
+                                             string $type,
+                                                    $allowed_types,
+                                             string $val_name = null): \RuntimeException
     {
         $allowed_types = (array)$allowed_types;
         switch (\count($allowed_types)) {
             case 0:
-                throw new \RuntimeException('allowedTypes array must not be empty.');
+                throw new \InvalidArgumentException('allowedTypes array must not be empty.');
 
             case 1:
                 $msg = '"%1$s" must be type(s) of %2$s but %3$s found.';
@@ -92,7 +92,6 @@ class Validator
             \sprintf($msg, $val_name, \implode(', ', $allowed_types), $type)
         );
     }
-
 
     /* **************************************************************************************************** */
 

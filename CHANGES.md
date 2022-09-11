@@ -4,7 +4,7 @@
 
 * 3.0.0 (2022-09-11)
   * [BREAKING] Changed package structure and method access.
-  * Requires PHP 8.0 or newer.
+  * Requires PHP 7.4 or newer.
   * Removed all deprecated methods.
   * Extra asserts are no longer a `Trait` but regular class.
   * All asserts are now `static` methods.
