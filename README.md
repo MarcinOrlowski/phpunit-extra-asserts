@@ -11,23 +11,28 @@ Collection of additional asserts to be used with [PHP Unit](https://phpunit.de) 
 
 ## Usage ##
 
-As ExtraAsserts come as trait, you just need to add related `use` to your base test class and all
-the methods should be simply available as `$this->assertName()`:
+As ExtraAsserts come as set of static methods so you just need to add related `use` to your test class and all
+the methods should be simply available via static reference `ExtraAsserts::...`. For example:
 
-    class MyBaseTestClass extends ... {
+```php
+use \MarcinOrlowski\PhpunitExtraAsserts\ExtraAsserts;
 
-        use \MarcinOrlowski\PhpunitExtraAsserts\Traits\ExtraAsserts;
+class MyBaseTestClass extends ... {
 
+    use \MarcinOrlowski\PhpunitExtraAsserts\ExtraAsserts;
+    use \MarcinOrlowski\PhpunitExtraAsserts\Type;
 
+    [...]
+
+    public function testSomething(): void
+    {
         [...]
 
-        public function testSuccessWithExplicitNull(): void
-        {
-            [...]
-
-            $this->assertRFC3339($stamp);
-        }
+        ExtraAsserts::assertIsType($val, [Type::STRING, Type::BOOL]);
+        ExtraAsserts::assertRFC3339($stamp);
     }
+}
+```
 
 ## Available asserts ##
 
