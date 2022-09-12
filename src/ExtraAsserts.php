@@ -207,6 +207,21 @@ class ExtraAsserts
     /**
      * Checks if given $val is of type array
      *
+     * @param mixed           $value    Variable to be asserted.
+     * @param string|string[] $type     Expected type as string (single type) or array of type strings.
+     * @param string|null     $var_name Optional name of the variable the content is being asserted for (used to
+     *                                  build error message only).
+     *
+     * @throws Ex\InvalidTypeExceptionContract
+     */
+    public static function assertIsType(mixed $value, $type, ?string $var_name = null): void
+    {
+        Validator::assertIsType($value, $type, Ex\InvalidTypeException::class, $var_name);
+    }
+
+    /**
+     * Checks if given $val is of type array
+     *
      * @param mixed       $value    Variable to be asserted.
      * @param string|null $var_name Optional name of the variable the content is being asserted for (used to
      *                              build error message only).
