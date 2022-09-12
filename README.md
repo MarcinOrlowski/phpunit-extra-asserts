@@ -60,6 +60,17 @@ class MyBaseTestClass extends ... {
 |---------------------------------------|--------------------------------------------------|
 | printArray(array $array, int $indent) | Prints content of given array in compacted form. |
 
+
+## Generator methods ##
+
+| Method                                                                                                             | Description   |
+|--------------------------------------------------------------------------------------------------------------------|---------------|
+| getRandomString(?string $prefix = null, int $length = 24, string $separator = '_')                                 |               |
+| getRandomStringOrNull(?string $prefix = null, int $length = 24, string $separator = '_', float $probability = 0.5) |               |
+| getRandomFloat(float $min, float $max, int $digits = 0)                                                            |               |
+| getRandomInt(int $min = 0, int $max = 100)                                                                         |               |
+| getRandomBool(float $probability = 0.5)                                                                            |               |
+
 ----
 
 ## License ##
