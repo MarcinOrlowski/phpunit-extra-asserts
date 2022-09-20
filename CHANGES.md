@@ -5,6 +5,7 @@
 * 3.1.1 (2022-09-20)
   * Fixed invalid signature of `getRandomFloat()`.
   * Updated documentation.
+  * Added default configs for `PHPStan` and `pre-commit` checkers
 
 * 3.1.0 (2022-09-11)
   * Added `Generator` class to factory random values of various types.
