@@ -2,11 +2,12 @@
 
 ## CHANGELOG ##
 
-* 3.1.1 (2022-09-20)
+* 3.2.0 (2022-09-20)
   * Fixed invalid signature of `getRandomFloat()`.
-  * Updated documentation.
+  * Corrected `Bridge` methods.
   * Added `PHPStan` to development dependencies.
   * Added default configs for `PHPStan`, `markdownlint` and `pre-commit` checkers.
+  * Updated documentation.
 
 * 3.1.0 (2022-09-11)
   * Added `Generator` class to factory random values of various types.
