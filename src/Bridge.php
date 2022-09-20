@@ -28,7 +28,7 @@ class Bridge
      * @throws \ReflectionException
      * @throws \RuntimeException
      */
-    protected function callProtectedMethod(      $cls_or_obj, string $method_name,
+    public function callProtectedMethod(      $cls_or_obj, string $method_name,
                                            array $args = []): mixed
     {
         ExtraAsserts::assertIsObjectOrExistingClass($cls_or_obj, 'objectOrClass');
@@ -57,7 +57,7 @@ class Bridge
      *
      * @throws \ReflectionException
      */
-    protected function getProtectedProperty($cls_or_obj, string $name): mixed
+    public function getProtectedProperty($cls_or_obj, string $name): mixed
     {
         ExtraAsserts::assertIsObjectOrExistingClass($cls_or_obj, 'objectOrClass');
 
@@ -83,7 +83,7 @@ class Bridge
      *
      * @return mixed
      */
-    protected function getProtectedConstant($cls_or_obj, string $name): mixed
+    public function getProtectedConstant($cls_or_obj, string $name): mixed
     {
         ExtraAsserts::assertIsObjectOrExistingClass($cls_or_obj, 'objectOrClass');
 
