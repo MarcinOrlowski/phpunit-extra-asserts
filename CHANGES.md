@@ -2,6 +2,9 @@
 
 ## CHANGELOG ##
 
+* 3.1.1 (2022-09-20)
+  * Fixed invalid signature of `getRandomFloat()`
+
 * 3.1.0 (2022-09-11)
   * Added `Generator` class to factory random values of various types.
   * Added `Bridge` class to manipulate hidden methods/properties/constants.

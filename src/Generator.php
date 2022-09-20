@@ -76,7 +76,7 @@ class Generator
      *
      * @return float
      */
-    public static static function getRandomFloat(float $min, float $max, int $digits = 0): float
+    public static function getRandomFloat(float $min, float $max, int $digits = 0): float
     {
         $result = $min + \mt_rand() / \mt_getrandmax() * ($max - $min);
         if ($digits > 0) {
