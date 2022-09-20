@@ -4,7 +4,7 @@
 
 * 3.2.0 (2022-09-20)
   * Fixed invalid signature of `getRandomFloat()`.
-  * Corrected `Bridge` methods.
+  * Made `Bridge` methods `static`.
   * Added `PHPStan` to development dependencies.
   * Added default configs for `PHPStan`, `markdownlint` and `pre-commit` checkers.
   * Updated documentation.
