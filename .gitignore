@@ -6,4 +6,5 @@ composer.lock
 .php_cs.cache
 
 /.pre-commit-config.yaml
+/.markdownlint.yaml
 /phpstan.neon
