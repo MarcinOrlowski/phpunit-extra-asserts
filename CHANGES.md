@@ -2,7 +2,7 @@
 
 ## CHANGELOG ##
 
-* dev
+* 3.3.0 (2022-09-20)
   * Added `getRandomLongitude()` and `getRandomLatitude()` generators.
 
 * 3.2.0 (2022-09-20)
