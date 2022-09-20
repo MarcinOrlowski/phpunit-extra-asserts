@@ -4,3 +4,7 @@ composer.lock
 .phpunit.result.cache
 .phpunit.cache
 .php_cs.cache
+
+/.pre-commit-config.yaml
+/.markdownlint.yaml
+/phpstan.neon

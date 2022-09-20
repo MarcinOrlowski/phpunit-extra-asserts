@@ -4,30 +4,43 @@
 [![License](https://poser.pugx.org/marcin-orlowski/phpunit-extra-asserts/license)](https://packagist.org/packages/marcin-orlowski/phpunit-extra-asserts)
 
 Collection of additional asserts to be used with [PHP Unit](https://phpunit.de) testing framework.
+Helpers are split into dedicated namespaces:
+
+* `ExtraAsserts`: various asserts to help testing your code,
+* `Generator`: various helper methods producing random values for your tests,
+* `Bridge`: helper methods allowing access to protected methods, properties and constants.
 
 ## Installation ##
 
-    composer require-dev marcin-orlowski/phpunit-extra-asserts
+```bash
+composer require-dev marcin-orlowski/phpunit-extra-asserts
+```
 
 ## Usage ##
 
-As ExtraAsserts come as trait, you just need to add related `use` to your base test class and all
-the methods should be simply available as `$this->assertName()`:
+As ExtraAsserts come as set of static methods so you just need to add related `use` to your test
+class and all
+the methods should be simply available via static reference `ExtraAsserts::...`. For example:
 
-    class MyBaseTestClass extends ... {
+```php
+use \MarcinOrlowski\PhpunitExtraAsserts\ExtraAsserts;
 
-        use \MarcinOrlowski\PhpunitExtraAsserts\Traits\ExtraAsserts;
+class MyBaseTestClass extends ... {
 
+    use \MarcinOrlowski\PhpunitExtraAsserts\ExtraAsserts;
+    use \MarcinOrlowski\PhpunitExtraAsserts\Type;
 
+    [...]
+
+    public function testSomething(): void
+    {
         [...]
 
-        public function testSuccessWithExplicitNull(): void
-        {
-            [...]
-
-            $this->assertRFC3339($stamp);
-        }
+        ExtraAsserts::assertIsType($val, [Type::STRING, Type::BOOL]);
+        ExtraAsserts::assertRFC3339($stamp);
     }
+}
+```
 
 ## Available asserts ##
 
@@ -55,10 +68,27 @@ the methods should be simply available as `$this->assertName()`:
 |---------------------------------------|--------------------------------------------------|
 | printArray(array $array, int $indent) | Prints content of given array in compacted form. |
 
+## Generator methods ##
+
+| Method                                                                                                             | Description   |
+|--------------------------------------------------------------------------------------------------------------------|---------------|
+| getRandomString(?string $prefix = null, int $length = 24, string $separator = '_')                                 |               |
+| getRandomStringOrNull(?string $prefix = null, int $length = 24, string $separator = '_', float $probability = 0.5) |               |
+| getRandomFloat(float $min, float $max, int $digits = 0)                                                            |               |
+| getRandomInt(int $min = 0, int $max = 100)                                                                         |               |
+| getRandomBool(float $probability = 0.5)                                                                            |               |
+
+## Bridge methods ##
+
+| Method                                                                                  | Description                         |
+|-----------------------------------------------------------------------------------------|-------------------------------------|
+| callProtectedMethod(object OR string $cls_or_obj, string $method_name, array $args = [] | Calls object/class protected method |
+| getProtectedProperty(string OR object $cls_or_obj, string $name)                        | Returns value of protected property |
+| getProtectedConstant(string OR object $cls_or_obj, string $name)                        | Returns value of protected constant |
+
 ----
 
 ## License ##
 
 * Written and copyrighted &copy;2014-2022 by Marcin Orlowski
-* PhpUnit-Extra-Asserts is open-sourced software licensed under
-  the [MIT license](http://opensource.org/licenses/MIT)
+* PhpUnit-Extra-Asserts is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
