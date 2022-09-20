@@ -4,6 +4,11 @@
 [![License](https://poser.pugx.org/marcin-orlowski/phpunit-extra-asserts/license)](https://packagist.org/packages/marcin-orlowski/phpunit-extra-asserts)
 
 Collection of additional asserts to be used with [PHP Unit](https://phpunit.de) testing framework.
+Helpers are split into dedicated namespaces:
+
+* `ExtraAsserts`: various asserts to help testing your code,
+* `Generator`: various helper methods producing random values for your tests,
+* `Bridge`: helper methods allowing access to protected methods, properties and constants.
 
 ## Installation ##
 
@@ -11,7 +16,8 @@ Collection of additional asserts to be used with [PHP Unit](https://phpunit.de) 
 
 ## Usage ##
 
-As ExtraAsserts come as set of static methods so you just need to add related `use` to your test class and all
+As ExtraAsserts come as set of static methods so you just need to add related `use` to your test
+class and all
 the methods should be simply available via static reference `ExtraAsserts::...`. For example:
 
 ```php
@@ -60,7 +66,6 @@ class MyBaseTestClass extends ... {
 |---------------------------------------|--------------------------------------------------|
 | printArray(array $array, int $indent) | Prints content of given array in compacted form. |
 
-
 ## Generator methods ##
 
 | Method                                                                                                             | Description   |
@@ -70,6 +75,14 @@ class MyBaseTestClass extends ... {
 | getRandomFloat(float $min, float $max, int $digits = 0)                                                            |               |
 | getRandomInt(int $min = 0, int $max = 100)                                                                         |               |
 | getRandomBool(float $probability = 0.5)                                                                            |               |
+
+## Bridge methods ##
+
+| Method                                                                                  | Description                         |
+|-----------------------------------------------------------------------------------------|-------------------------------------|
+| callProtectedMethod(object OR string $cls_or_obj, string $method_name, array $args = [] | Calls object/class protected method |
+| getProtectedProperty(string OR object $cls_or_obj, string $name)                        | Returns value of protected property |
+| getProtectedConstant(string OR object $cls_or_obj, string $name)                        | Returns value of protected constant |
 
 ----
 
