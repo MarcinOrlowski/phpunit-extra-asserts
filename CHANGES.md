@@ -2,6 +2,9 @@
 
 ## CHANGELOG ##
 
+* dev
+  * Added `getRandomLongitude()` and `getRandomLatitude()` generators.
+
 * 3.2.0 (2022-09-20)
   * Fixed invalid signature of `getRandomFloat()`.
   * Made `Bridge` methods `static`.
