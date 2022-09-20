@@ -16,7 +16,6 @@ namespace MarcinOrlowski\PhpunitExtraAsserts;
 
 class Generator
 {
-
     /**
      * Generates random string, with optional prefix
      *
@@ -42,6 +41,8 @@ class Generator
         return \substr(($prefix ?? '') . \md5(\uniqid('', true)), 0, $length);
     }
 
+    /* **************************************************************************************************** */
+
     /**
      * Generates random string, with optional prefix
      *
@@ -66,6 +67,8 @@ class Generator
         return null;
     }
 
+    /* **************************************************************************************************** */
+
     /**
      * Generate Random float value
      *
@@ -86,6 +89,8 @@ class Generator
         return $result;
     }
 
+    /* **************************************************************************************************** */
+
     /**
      * Generates random integer value from withing specified range.
      *
@@ -101,6 +106,8 @@ class Generator
         return \random_int($min, $max);
     }
 
+    /* **************************************************************************************************** */
+
     /**
      * Draws random boolean value.
      *
@@ -112,7 +119,51 @@ class Generator
         return $rand > $probability;
     }
 
-
     /* **************************************************************************************************** */
+
+    /** @var float */
+    public const LATITUDE_MIN = -90.0;
+
+    /** @var float */
+    public const LATITUDE_MAX = 90.0;
+
+    /** @var float */
+    public const LONGITUDE_MIN = -180.0;
+
+    /** @var float */
+    public const LONGITUDE_MAX = 180.0;
+
+    /**
+     * Returns random latitude coordinate (WGS84)
+     *
+     * @param float $min    Minimal value (default: -90).
+     * @param float $max    Maximal value (default: +90).
+     * @param int   $digits The optional number of decimal digits to round to. Default 0 means not rounding.
+     *
+     * @return float
+     */
+    public static function getRandomLatitude(float $min = self::LATITUDE_MIN,
+                                             float $max = self::LATITUDE_MAX,
+                                             int   $digits = 0): float
+    {
+        return static::getRandomFloat($min, $max, $digits);
+    }
+
+    /**
+     * Returns random longitude coordinate (WGS84)
+     *
+     * @param float $min    Minimal value (default: -180).
+     * @param float $max    Maximal value (default: +180).
+     * @param int   $digits The optional number of decimal digits to round to.
+     *                      Default 0 means not rounding.
+     *
+     * @return float
+     */
+    public static function getRandomLongitude(float $min = self::LONGITUDE_MIN,
+                                              float $max = self::LONGITUDE_MAX,
+                                              int   $digits = 0): float
+    {
+        return static::getRandomFloat($min, $max, $digits);
+    }
 
 } // end of Generator class

@@ -70,13 +70,15 @@ class MyBaseTestClass extends ... {
 
 ## Generator methods ##
 
-| Method                                                                                                             | Description   |
-|--------------------------------------------------------------------------------------------------------------------|---------------|
-| getRandomString(?string $prefix = null, int $length = 24, string $separator = '_')                                 |               |
-| getRandomStringOrNull(?string $prefix = null, int $length = 24, string $separator = '_', float $probability = 0.5) |               |
-| getRandomFloat(float $min, float $max, int $digits = 0)                                                            |               |
-| getRandomInt(int $min = 0, int $max = 100)                                                                         |               |
-| getRandomBool(float $probability = 0.5)                                                                            |               |
+| Method                                                                                                             | Description               |
+|--------------------------------------------------------------------------------------------------------------------|---------------------------|
+| getRandomString(?string $prefix = null, int $length = 24, string $separator = '_')                                 |                           |
+| getRandomStringOrNull(?string $prefix = null, int $length = 24, string $separator = '_', float $probability = 0.5) |                           |
+| getRandomFloat(float $min, float $max, int $digits = 0)                                                            |                           |
+| getRandomInt(int $min = 0, int $max = 100)                                                                         |                           |
+| getRandomBool(float $probability = 0.5)                                                                            |                           |
+| getRandomLatitude(float $min, float $max, int $round=0)                                                            | Returns random latitude.  |
+| getRandomLongitude(float $min, float $max, int $round=0)                                                           | Returns random longitude. |
 
 ## Bridge methods ##
 
@@ -91,4 +93,5 @@ class MyBaseTestClass extends ... {
 ## License ##
 
 * Written and copyrighted &copy;2014-2022 by Marcin Orlowski
-* PhpUnit-Extra-Asserts is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+* PhpUnit-Extra-Asserts is open-sourced software licensed under
+  the [MIT license](http://opensource.org/licenses/MIT)
