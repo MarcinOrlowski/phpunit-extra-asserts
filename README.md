@@ -12,7 +12,9 @@ Helpers are split into dedicated namespaces:
 
 ## Installation ##
 
-    composer require-dev marcin-orlowski/phpunit-extra-asserts
+```bash
+composer require-dev marcin-orlowski/phpunit-extra-asserts
+```
 
 ## Usage ##
 
@@ -89,5 +91,4 @@ class MyBaseTestClass extends ... {
 ## License ##
 
 * Written and copyrighted &copy;2014-2022 by Marcin Orlowski
-* PhpUnit-Extra-Asserts is open-sourced software licensed under
-  the [MIT license](http://opensource.org/licenses/MIT)
+* PhpUnit-Extra-Asserts is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
