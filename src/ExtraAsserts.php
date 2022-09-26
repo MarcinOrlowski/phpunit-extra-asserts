@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace MarcinOrlowski\PhpunitExtraAsserts;
 
-use MarcinOrlowski\PhpunitExtraAsserts\Exception as Ex;
+use MarcinOrlowski\TypeAsserts\Exception as Ex;
+use MarcinOrlowski\TypeAsserts\Validator;
+use MarcinOrlowski\TypeAsserts\Type;
 use PHPUnit\Framework\Assert;
 
 class ExtraAsserts
@@ -88,7 +90,7 @@ class ExtraAsserts
      * @param array $ignored_keys Array of keys that will be ignored during comparison
      *                            (as they never existed)
      */
-    public static function massAssertEquals(array $array_a, array $array_b, array $ignored_keys = [])
+    public static function massAssertEquals(array $array_a, array $array_b, array $ignored_keys = []): void
     {
         foreach ($array_a as $key => $value) {
             if (\in_array($key, $ignored_keys, true)) {
@@ -191,7 +193,11 @@ class ExtraAsserts
                 static::printArray($v, $indent + 1);
             } elseif (is_object($v)) {
                 try {
-                    $v = $v->__toString();
+                    if ($v instanceof \Stringable) {
+                        $v = $v->__toString();
+                    } else {
+                        $v = \get_class($v);
+                    }
                     echo "{$i}{$k}: {$v}\n";
                 } catch (\Throwable $e) {
                     echo "{$i}{$k}: {$v}\n";
@@ -209,8 +215,8 @@ class ExtraAsserts
      *
      * @param mixed           $value    Variable to be asserted.
      * @param string|string[] $type     Expected type as string (single type) or array of type strings.
-     * @param string|null     $var_name Optional name of the variable the content is being asserted for (used to
-     *                                  build error message only).
+     * @param string|null     $var_name Optional name of the variable the content is being asserted for (used
+     *                                  to build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
