@@ -2,6 +2,10 @@
 
 ## CHANGELOG ##
 
+* 3.4.0 (2022-09-26)
+  * Internal `Validator` and `Type` are replaced by ones provided by `TypeAsserts` package.
+  * Exception classes are replaced by ones provided by `TypeAsserts` package.
+
 * 3.3.0 (2022-09-20)
   * Added `getRandomLongitude()` and `getRandomLatitude()` generators.
 
