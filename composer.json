@@ -29,11 +29,11 @@
   },
   "require": {
     "php": "^8.0||^8.1",
-    "marcin-orlowski/type-asserts": "^1.2.0"
+    "marcin-orlowski/type-asserts": "^2.0.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.0",
+    "phpunit/phpunit": "^9.5.26",
     "phpunit/php-code-coverage": "^9.0",
-    "phpstan/phpstan": "^1.8"
+    "phpstan/phpstan": "^1.9.1"
   }
 }
