@@ -2,6 +2,10 @@
 
 ## CHANGELOG ##
 
+* 4.0.0 (2022-11-04)
+  * Dropped support for PHP 7.
+  * The `Bridge` class is no longer part of the package. Use `marcin-orlowski/php-lockpick` instead.
+
 * 3.4.0 (2022-09-26)
   * Internal `Validator` and `Type` are replaced by ones provided by `TypeAsserts` package.
   * Exception classes are replaced by ones provided by `TypeAsserts` package.

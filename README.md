@@ -8,7 +8,6 @@ Helpers are split into dedicated namespaces:
 
 * `ExtraAsserts`: various asserts to help testing your code,
 * `Generator`: various helper methods producing random values for your tests,
-* `Bridge`: helper methods allowing access to protected methods, properties and constants.
 
 ## Installation ##
 
@@ -80,18 +79,9 @@ class MyBaseTestClass extends ... {
 | getRandomLatitude(float $min, float $max, int $round=0)                                                            | Returns random latitude.  |
 | getRandomLongitude(float $min, float $max, int $round=0)                                                           | Returns random longitude. |
 
-## Bridge methods ##
-
-| Method                                                                                  | Description                         |
-|-----------------------------------------------------------------------------------------|-------------------------------------|
-| callProtectedMethod(object OR string $cls_or_obj, string $method_name, array $args = [] | Calls object/class protected method |
-| getProtectedProperty(string OR object $cls_or_obj, string $name)                        | Returns value of protected property |
-| getProtectedConstant(string OR object $cls_or_obj, string $name)                        | Returns value of protected constant |
-
 ----
 
 ## License ##
 
 * Written and copyrighted &copy;2014-2022 by Marcin Orlowski
-* PhpUnit-Extra-Asserts is open-sourced software licensed under
-  the [MIT license](http://opensource.org/licenses/MIT)
+* Open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
