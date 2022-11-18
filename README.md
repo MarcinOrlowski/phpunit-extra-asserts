@@ -69,15 +69,15 @@ class MyBaseTestClass extends ... {
 
 ## Generator methods ##
 
-| Method                                                                                                             | Description               |
-|--------------------------------------------------------------------------------------------------------------------|---------------------------|
-| getRandomString(?string $prefix = null, int $length = 24, string $separator = '_')                                 |                           |
-| getRandomStringOrNull(?string $prefix = null, int $length = 24, string $separator = '_', float $probability = 0.5) |                           |
-| getRandomFloat(float $min, float $max, int $digits = 0)                                                            |                           |
-| getRandomInt(int $min = 0, int $max = 100)                                                                         |                           |
-| getRandomBool(float $probability = 0.5)                                                                            |                           |
-| getRandomLatitude(float $min, float $max, int $round=0)                                                            | Returns random latitude.  |
-| getRandomLongitude(float $min, float $max, int $round=0)                                                           | Returns random longitude. |
+| Method                                                                                                                      | Description                                                                                                                                                                                                                                  |
+|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| getRandomString(?string $prefix = null, int $length = 24, string $separator = '_')                                          | Returns string of total length equal to specified limit (incl. optional prefix or separator strings)                                                                                                                                         |
+| getRandomStringOrNull(?string $prefix = null, int $length = 24, string $separator = '_', float $trueValueProbability = 0.5) | Returns either random `string` or `NULL`. Probability (float value in range 0-1) specifies the chance of drawing the `string` value. The higher the value of this argument, the higher the chance for `string` being returned.               |
+| getRandomFloat(float $min, float $max, int $fractionalDigits = 0)                                                           | Draws random `float` from given range. If given `max` is lower than `min`, these two will be swapped.  If number of fractional digits is non-zero, value will be rounded to given number of fractional digits. Value `0` means not rounding. |
+| getRandomInt(int $min = 0, int $max = 100)                                                                                  | Draws random `int` from given range. If given `max` is lower than `min`, these two will be swapped.                                                                                                                                          |
+| getRandomBool(float $trueValueProbability = 0.5)                                                                            | Draws random `boolean` value. Float value (in 0-1 range) defining the chances of drawing the value of `TRUE`. The higher the of this argument, the higher the chances to draw `TRUE`.                                                        |
+| getRandomLatitude(float $min, float $max, int $round=0)                                                                     | Draws random latitude from given range (default is max allowed range). If given `max` is lower than `min`, these two will be swapped.                                                                                                        |
+| getRandomLongitude(float $min, float $max, int $round=0)                                                                    | Draws random longitude from given range (default is max allowed range). If given `max` is lower than `min`, these two will be swapped.                                                                                                       |
 
 ----
 

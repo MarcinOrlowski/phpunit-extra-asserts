@@ -2,6 +2,14 @@
 
 ## CHANGELOG ##
 
+* 5.0.0 (2022-11-18)
+  * `Generator::getRandomBool()` probability now works opposite, and sets the probability of
+    drawing the `TRUE` value.
+  * `Generator::getRandomFloat()` now will swap min/max args if given max is lower than min.
+  * `Generator::getRandomInt()` now will swap min/max args if given max is lower than min.
+  * `Generator::getRandomStringOrNull()` probability now works opposite and defines the chance of
+    having the `string` value returned.
+
 * 4.0.0 (2022-11-04)
   * Dropped support for PHP 7.
   * The `Bridge` class is no longer part of the package. Use `marcin-orlowski/php-lockpick` instead.

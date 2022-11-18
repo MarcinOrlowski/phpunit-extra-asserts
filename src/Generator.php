@@ -46,22 +46,21 @@ class Generator
     /**
      * Generates random string, with optional prefix
      *
-     * @param string|null $prefix      Optional prefix to be added to generated string.
-     * @param int         $length      Length of the string to be generated.
-     * @param string      $separator   Optional prefix separator.
-     * @param float       $probability Probability (float value in range 0-1) specifying of string
-     *                                 being returned in the drawing. Drawings are done with three
-     *                                 digits precision. Default value is 0.5 (50%).
+     * @param string|null $prefix                 Optional prefix to be added to generated string.
+     * @param int         $length                 Length of the string to be generated.
+     * @param string      $separator              Optional prefix separator.
+     * @param float       $stringValueProbability Probability (float value in range 0-1) specifying the
+     *                                            chance of drawing the string value instead of `NULL`. The
+     *                                            higher the value of this argument, the higher the chance
+     *                                            for `string` being returned.
      *
      * @throws \Exception
      */
     public static function getRandomStringOrNull(?string $prefix = null, int $length = 24,
                                                  string  $separator = '_',
-                                                 float   $probability = 0.5): ?string
+                                                 float   $stringValueProbability = 0.5): ?string
     {
-        /** @var float $rand */
-        $rand = \random_int(0, 999) / 1000;
-        if ($rand >= $probability) {
+        if (static::getRandomBool($stringValueProbability)) {
             return static::getRandomString($prefix, $length, $separator);
         }
         return null;
@@ -72,18 +71,24 @@ class Generator
     /**
      * Generate Random float value
      *
-     * @param float $min    Lowest allowed value.
-     * @param float $max    Highest allowed value.
-     * @param int   $digits The optional number of decimal digits to round to.
-     *                      Default 0 means not rounding.
+     * @param float $min              Lowest allowed value.
+     * @param float $max              Highest allowed value.
+     * @param int   $fractionalDigits The optional number of decimal digits to round to. Default 0 means not
+     *                                rounding.
      *
      * @return float
      */
-    public static function getRandomFloat(float $min, float $max, int $digits = 0): float
+    public static function getRandomFloat(float $min, float $max, int $fractionalDigits = 0): float
     {
+        if ($min > $max) {
+            $tmp = $min;
+            $min = $max;
+            $max = $tmp;
+        }
+
         $result = $min + \mt_rand() / \mt_getrandmax() * ($max - $min);
-        if ($digits > 0) {
-            $result = \round($result, $digits);
+        if ($fractionalDigits > 0) {
+            $result = \round($result, $fractionalDigits);
         }
 
         return $result;
@@ -103,20 +108,29 @@ class Generator
      */
     public static function getRandomInt(int $min = 0, int $max = 100): int
     {
+        if ($max < $min) {
+            $tmp = $min;
+            $min = $max;
+            $max = $tmp;
+        }
         return \random_int($min, $max);
     }
 
     /* **************************************************************************************************** */
 
     /**
-     * Draws random boolean value.
+     * Draws random boolean value. Returns TRUE if value is higher than specified threshold, FALSE otherwise.
+     *
+     * @param float $trueValueProbability Float value (in 0-1 range) defining the chances of drawing the
+     *                                    value of `TRUE`. The higher the of this argument, the higher the
+     *                                    chances to draw `TRUE`.
      *
      * @throws \Exception
      */
-    public static function getRandomBool(float $probability = 0.5): bool
+    public static function getRandomBool(float $trueValueProbability = 0.5): bool
     {
         $rand = \random_int(0, 999) / 1000;
-        return $rand > $probability;
+        return $rand < $trueValueProbability;
     }
 
     /* **************************************************************************************************** */
@@ -136,17 +150,18 @@ class Generator
     /**
      * Returns random latitude coordinate (WGS84)
      *
-     * @param float $min    Minimal value (default: -90).
-     * @param float $max    Maximal value (default: +90).
-     * @param int   $digits The optional number of decimal digits to round to. Default 0 means not rounding.
+     * @param float $min              Minimal value (default: -90).
+     * @param float $max              Maximal value (default: +90).
+     * @param int   $fractionalDigits The optional number of fractional digits to round to. Default 0 means
+     *                                not rounding.
      *
      * @return float
      */
     public static function getRandomLatitude(float $min = self::LATITUDE_MIN,
                                              float $max = self::LATITUDE_MAX,
-                                             int   $digits = 0): float
+                                             int   $fractionalDigits = 0): float
     {
-        return static::getRandomFloat($min, $max, $digits);
+        return static::getRandomFloat($min, $max, $fractionalDigits);
     }
 
     /**
@@ -154,8 +169,7 @@ class Generator
      *
      * @param float $min    Minimal value (default: -180).
      * @param float $max    Maximal value (default: +180).
-     * @param int   $digits The optional number of decimal digits to round to.
-     *                      Default 0 means not rounding.
+     * @param int   $digits The optional number of decimal digits to round to.Default 0 means not rounding.
      *
      * @return float
      */
