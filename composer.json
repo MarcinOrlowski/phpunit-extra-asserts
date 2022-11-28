@@ -2,7 +2,7 @@
   "name": "marcin-orlowski/phpunit-extra-asserts",
   "description": "Extra asserts and helpers to make your unit testing easier.",
   "homepage": "https://github.com/MarcinOrlowski/phpunit-extra-asserts",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "keywords": [
     "helper",
     "tests",
@@ -15,7 +15,7 @@
   "authors": [
     {
       "name": "Marcin Orlowski",
-      "homepage": "http://MarcinOrlowski.com/"
+      "homepage": "https://MarcinOrlowski.com/"
     }
   ],
   "support": {
