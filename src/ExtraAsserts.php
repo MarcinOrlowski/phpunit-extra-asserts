@@ -304,9 +304,13 @@ class ExtraAsserts
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsObjectOrExistingClass($cls_or_obj, ?string $var_name = null): void
+    public static function assertIsObjectOrExistingClass(string|object $cls_or_obj,
+                                                         ?string       $var_name = null): void
     {
-        Validator::assertIsType($cls_or_obj, [Type::EXISTING_CLASS, Type::OBJECT], $var_name);
+        // FIXME Should throw more specific exception instead of Ex\NotObjectException::class
+        Validator::assertIsType($cls_or_obj, [Type::EXISTING_CLASS,
+                                              Type::OBJECT,
+        ], Ex\NotObjectException::class, $var_name);
     }
 
     /**
