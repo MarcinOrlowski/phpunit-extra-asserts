@@ -199,8 +199,8 @@ class ExtraAsserts
                         $v = \get_class($v);
                     }
                     echo "{$i}{$k}: {$v}\n";
-                } catch (\Throwable $e) {
-                    echo "{$i}{$k}: {$v}\n";
+                } catch (\Throwable $ex) {
+                    echo "{$i}{$k}: {$ex->getMessage()}\n";
                 }
             } else {
                 echo "{$i}{$k}: {$v}\n";
@@ -278,7 +278,7 @@ class ExtraAsserts
      */
     public static function assertIsInteger(mixed $value, ?string $var_name = null): void
     {
-        Validator::assertIsType($value, [Type::INTEGER], Ex\NotIntegerException::class, $var_name);
+        Validator::assertIsType($value, [Type::INT], Ex\NotIntegerException::class, $var_name);
     }
 
     /**
@@ -304,9 +304,13 @@ class ExtraAsserts
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsObjectOrExistingClass($cls_or_obj, ?string $var_name = null): void
+    public static function assertIsObjectOrExistingClass(string|object $cls_or_obj,
+                                                         ?string       $var_name = null): void
     {
-        Validator::assertIsType($cls_or_obj, [Type::EXISTING_CLASS, Type::OBJECT], $var_name);
+        // FIXME Should throw more specific exception instead of Ex\NotObjectException::class
+        Validator::assertIsType($cls_or_obj, [Type::EXISTING_CLASS,
+                                              Type::OBJECT,
+        ], Ex\NotObjectException::class, $var_name);
     }
 
     /**

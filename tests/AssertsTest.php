@@ -22,12 +22,12 @@ class AssertsTest extends TestCase
      *
      * @param string|null $prefix    Optional prefix to be added to generated string.
      * @param int         $length    Length of the string to be generated.
-     * @param string|null $separator Optional prefix separator.
+     * @param string      $separator Optional prefix separator.
      *
      * @return string
      */
-    protected function getRandomString(string $prefix = null, int $length = 24,
-                                       string $separator = '_'): string
+    protected function getRandomString(?string $prefix = null, int $length = 24,
+                                       string  $separator = '_'): string
     {
         if ($length < 1) {
             throw new \RuntimeException('Length must be greater than 0');
@@ -137,7 +137,7 @@ class AssertsTest extends TestCase
     public function testAssertArraysHaveDifferencesSubsetA(): void
     {
         $array_a = $this->getDataForArrayContainTests(10, 20);
-        $array_b = \array_slice($array_a, 0, \count($array_a) / 2);
+        $array_b = \array_slice($array_a, 0, (int)(\count($array_a) / 2));
         \asort($array_b);
         $diff_count = \abs(\count($array_a) - \count($array_b));
         ExtraAsserts::assertArraysHaveDifferences($diff_count, $array_a, $array_b);
@@ -151,7 +151,7 @@ class AssertsTest extends TestCase
     {
         $array_b = $this->getDataForArrayContainTests(10, 20);
         $array_b_size = \count($array_b);
-        $array_a = \array_slice($array_b, 0, $array_b_size / 2);
+        $array_a = \array_slice($array_b, 0, (int)($array_b_size / 2));
         $array_a_size = \count($array_a);
         \asort($array_b);
         $diff_count = \abs($array_a_size - $array_b_size);
