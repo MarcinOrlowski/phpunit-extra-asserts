@@ -22,12 +22,12 @@ class AssertsTest extends TestCase
      *
      * @param string|null $prefix    Optional prefix to be added to generated string.
      * @param int         $length    Length of the string to be generated.
-     * @param string|null $separator Optional prefix separator.
+     * @param string      $separator Optional prefix separator.
      *
      * @return string
      */
-    protected function getRandomString(string $prefix = null, int $length = 24,
-                                       string $separator = '_'): string
+    protected function getRandomString(?string $prefix = null, int $length = 24,
+                                       string  $separator = '_'): string
     {
         if ($length < 1) {
             throw new \RuntimeException('Length must be greater than 0');
