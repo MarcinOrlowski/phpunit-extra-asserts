@@ -75,7 +75,8 @@ MD013:
   # Include code blocks
   code_blocks: true
   # Include tables
-  tables: true
+  # MOR: we got tables, so lines are looong
+  tables: false
   # Include headings
   headings: true
   # Include headings
