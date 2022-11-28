@@ -7,6 +7,7 @@
   * Corrected the way `printaArray()` handles conversion exceptions.
   * Corrected `assertIsObjectOrExistingClass()` not passing exception to `assertIsType()`
   * Added `Generator` tests.
+  * Added PHPStan Github Action.
 
 * 5.0.0 (2022-11-18)
   * `Generator::getRandomBool()` probability now works opposite, and sets the probability of
