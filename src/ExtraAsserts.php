@@ -199,8 +199,8 @@ class ExtraAsserts
                         $v = \get_class($v);
                     }
                     echo "{$i}{$k}: {$v}\n";
-                } catch (\Throwable $e) {
-                    echo "{$i}{$k}: {$v}\n";
+                } catch (\Throwable $ex) {
+                    echo "{$i}{$k}: {$ex->getMessage()}\n";
                 }
             } else {
                 echo "{$i}{$k}: {$v}\n";
