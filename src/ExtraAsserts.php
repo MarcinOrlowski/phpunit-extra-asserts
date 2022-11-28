@@ -278,7 +278,7 @@ class ExtraAsserts
      */
     public static function assertIsInteger(mixed $value, ?string $var_name = null): void
     {
-        Validator::assertIsType($value, [Type::INTEGER], Ex\NotIntegerException::class, $var_name);
+        Validator::assertIsType($value, [Type::INT], Ex\NotIntegerException::class, $var_name);
     }
 
     /**
