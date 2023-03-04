@@ -133,22 +133,26 @@ class ExtraAsserts
     /**
      * Asserts provided string is valid RFC3339 timestamp string.
      *
-     * @param string $stamp String to check against RFC3339 format
+     * @param string  $stamp   String to check against RFC3339 format.
+     * @param ?string $message Optional custom message to display on failure.
      */
-    public static function assertRFC3339(string $stamp): void
+    public static function assertRFC3339(string $stamp, ?string $message = null): void
     {
         if (static::validateRFC3339($stamp) === false) {
-            Assert::fail("'{$stamp}' is not a valid RFC3339 time stamp string");
+            Assert::fail($message ?? "'{$stamp}' is not a valid RFC3339 time stamp string");
         }
     }
 
     /**
      * Asserts $stamp string is valid RFC3339 timestamp string or @null.
+     *
+     * @param ?string $stamp   String to check against RFC3339 format.
+     * @param ?string $message Optional custom message to display on failure.
      */
-    public static function assertRFC3339OrNull(string $stamp): void
+    public static function assertRFC3339OrNull(?string $stamp, ?string $message = null): void
     {
-        if (static::validateRFC3339($stamp) === false) {
-            Assert::fail("'{$stamp}' is neither a valid RFC3339 time stamp string nor NULL");
+        if ($stamp !== null && static::validateRFC3339($stamp) === false) {
+            Assert::fail($message ?? "'{$stamp}' is neither a valid RFC3339 time stamp string nor NULL");
         }
     }
 
