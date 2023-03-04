@@ -22,18 +22,14 @@ use PHPUnit\Framework\Assert;
 class ExtraAsserts
 {
     /**
-     * Asserts array has specified key and it's value is according to expectations.
-     *
-     * @param string $key
-     * @param array  $array
-     * @param string $expected_value
+     * @deprecated Use assertArrayHasKeyValue() instead
      */
-    public static function assertArrayElement(string $key, array $array, string $expected_value): void
+    public static function assertArrayElement(string $key, array $array, string $expectedValue): void
     {
         $msg = "Key not found: {$key}";
         Assert::assertArrayHasKey($key, $array, $msg);
-        $msg = "Value for key '{$key}' is not as expected: {$expected_value}";
-        Assert::assertEquals($expected_value, $array[ $key ], $msg);
+        $msg = "Value for key '{$key}' is not as expected: {$expectedValue}";
+        Assert::assertEquals($expectedValue, $array[ $key ], $msg);
     }
 
     /**s
