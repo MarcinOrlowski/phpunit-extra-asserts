@@ -103,29 +103,29 @@ class ExtraAsserts
      * Assert if keys from response have the same values as in original array.
      * Keys listed in $skip_keys are ignored.
      *
-     * @param array $array_a      Array A to compare content of
-     * @param array $array_b      Array B to compare content of
-     * @param array $ignored_keys Array of keys that will be ignored during comparison
-     *                            (as they never existed)
+     * @param array    $expected     Expected content of the array.
+     * @param array    $actual       Actual content of the array to compare with expectations.
+     * @param string[] $keysToIgnore Array of keys that will be ignored during comparison (as they never
+     *                               existed).
      */
-    public static function massAssertEquals(array $array_a, array $array_b, array $ignored_keys = []): void
+    public static function massAssertEquals(array $expected, array $actual, array $keysToIgnore = []): void
     {
-        foreach ($array_a as $key => $value) {
-            if (\in_array($key, $ignored_keys, true)) {
+        foreach ($expected as $key => $value) {
+            if (\in_array($key, $keysToIgnore, true)) {
                 continue;
             }
             if (\is_array($value)) {
-                static::massAssertEquals($value, $array_b[ $key ], $ignored_keys);
+                static::massAssertEquals($value, $actual[ $key ], $keysToIgnore);
             } else {
-                $orig_type = \gettype($value);
-                $resp_type = \gettype($array_b[ $key ]);
+                $origType = \gettype($value);
+                $actualType = \gettype($actual[ $key ]);
 
-                if ($orig_type !== $resp_type) {
-                    $msg = "Type mismatch for key '{$key}'. Expected '{$orig_type}', found '{$resp_type}'";
+                if ($origType !== $actualType) {
+                    $msg = "Type mismatch for key '{$key}'. Expected '{$origType}', found '{$actualType}'";
                 } else {
-                    $msg = "Value mismatch for key '{$key}'. Expected '{$value}', found '{$array_b[$key]}'";
+                    $msg = "Value mismatch for key '{$key}'. Expected '{$value}', found '{$actual[$key]}'";
                 }
-                Assert::assertEquals($value, $array_b[ $key ], $msg);
+                Assert::assertEquals($value, $actual[ $key ], $msg);
             }
         }
     }
@@ -161,34 +161,33 @@ class ExtraAsserts
      */
     protected static function validateRFC3339(string $stamp): bool
     {
-        $RFC3339_REGEXP = '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?((?:[\+\-]\d{2}:\d{2})|Z)$/i';
+        $regExp = '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?((?:[\+\-]\d{2}:\d{2})|Z)$/i';
 
-        return \preg_match($RFC3339_REGEXP, $stamp) === 1;
+        return \preg_match($regExp, $stamp) === 1;
     }
 
-    protected static function arrayRecursiveDiffCount(array $array_a, array $array_b): int
+    protected static function arrayRecursiveDiffCount(array $arrayA, array $arrayB): int
     {
         $diff_count = 0;
 
-        $count_a = \count($array_a);
-        $count_b = \count($array_b);
+        $countA = \count($arrayA);
+        $countB = \count($arrayB);
 
-        // If array_b is bigger (more keys) then we can need to count key count
-        // difference separately. In case array_a is bigger, we detect missing
-        // keys in the loop below.
-        if ($count_b > $count_a) {
-            $diff_count = \abs($count_a - $count_b);
+        // If arrayA is bigger (more keys) then we can need to count key count difference separately.
+        // In case arrayA is bigger, we detect missing keys in the loop below.
+        if ($countB > $countA) {
+            $diff_count = \abs($countA - $countB);
         }
 
-        foreach ($array_a as $a_key => $a_value) {
-            if (!\array_key_exists($a_key, $array_b)) {
+        foreach ($arrayA as $KeyOfA => $valueOfA) {
+            if (!\array_key_exists($KeyOfA, $arrayB)) {
                 $diff_count++;
                 continue;
             }
 
-            if (\is_array($a_value) && \is_array($array_b[ $a_key ])) {
-                $diff_count += static::arrayRecursiveDiffCount($a_value, $array_b[ $a_key ]);
-            } elseif ($a_value !== $array_b[ $a_key ]) {
+            if (\is_array($valueOfA) && \is_array($arrayB[ $KeyOfA ])) {
+                $diff_count += static::arrayRecursiveDiffCount($valueOfA, $arrayB[ $KeyOfA ]);
+            } elseif ($valueOfA !== $arrayB[ $KeyOfA ]) {
                 $diff_count++;
             }
         }
@@ -237,116 +236,116 @@ class ExtraAsserts
      *
      * @param mixed           $value    Variable to be asserted.
      * @param string|string[] $type     Expected type as string (single type) or array of type strings.
-     * @param string|null     $var_name Optional name of the variable the content is being asserted for (used
+     * @param string|null     $varName  Optional name of the variable the content is being asserted for (used
      *                                  to build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsType(mixed $value, $type, ?string $var_name = null): void
+    public static function assertIsType(mixed $value, string|array $type, ?string $varName = null): void
     {
-        Validator::assertIsType($value, $type, Ex\InvalidTypeException::class, $var_name);
+        Validator::assertIsType($value, $type, Ex\InvalidTypeException::class, $varName);
     }
 
     /**
      * Checks if given $val is of type array
      *
      * @param mixed       $value    Variable to be asserted.
-     * @param string|null $var_name Optional name of the variable the content is being asserted for (used to
+     * @param string|null $varName  Optional name of the variable the content is being asserted for (used to
      *                              build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsArray(mixed $value, ?string $var_name = null): void
+    public static function assertIsArray(mixed $value, ?string $varName = null): void
     {
-        Validator::assertIsType($value, [Type::ARRAY], Ex\NotArrayException::class, $var_name);
+        Validator::assertIsType($value, [Type::ARRAY], Ex\NotArrayException::class, $varName);
     }
 
     /**
      * Checks if given $val is of type boolean
      *
      * @param mixed       $value    Variable to be asserted.
-     * @param string|null $var_name Optional name of the variable the content is being asserted for (used to
+     * @param string|null $varName  Optional name of the variable the content is being asserted for (used to
      *                              build error message only).
      *
      */
-    public static function assertIsBool(mixed $value, ?string $var_name = null): void
+    public static function assertIsBool(mixed $value, ?string $varName = null): void
     {
-        Validator::assertIsType($value, [Type::BOOL], Ex\NotBooleanException::class, $var_name);
+        Validator::assertIsType($value, [Type::BOOL], Ex\NotBooleanException::class, $varName);
     }
 
     /**
      * Checks if given $val is of type float
      *
      * @param mixed       $value    Variable to be asserted.
-     * @param string|null $var_name Optional name of the variable the content is being asserted for (used to
+     * @param string|null $varName  Optional name of the variable the content is being asserted for (used to
      *                              build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsFloat(mixed $value, ?string $var_name = null): void
+    public static function assertIsFloat(mixed $value, ?string $varName = null): void
     {
-        Validator::assertIsType($value, [Type::FLOAT], Ex\NotFloatException::class, $var_name);
+        Validator::assertIsType($value, [Type::FLOAT], Ex\NotFloatException::class, $varName);
     }
 
     /**
      * Checks if given $val is of type integer
      *
      * @param mixed       $value    Variable to be asserted.
-     * @param string|null $var_name Optional name of the variable the content is being asserted for (used to
+     * @param string|null $varName  Optional name of the variable the content is being asserted for (used to
      *                              build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      * @throws Ex\NotIntegerException
      */
-    public static function assertIsInteger(mixed $value, ?string $var_name = null): void
+    public static function assertIsInteger(mixed $value, ?string $varName = null): void
     {
-        Validator::assertIsType($value, [Type::INT], Ex\NotIntegerException::class, $var_name);
+        Validator::assertIsType($value, [Type::INT], Ex\NotIntegerException::class, $varName);
     }
 
     /**
      * Checks if given $val is an object
      *
      * @param mixed       $value    Variable to be asserted.
-     * @param string|null $var_name Optional name of the variable the content is being asserted for (used to
+     * @param string|null $varName  Optional name of the variable the content is being asserted for (used to
      *                              build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsObject(mixed $value, ?string $var_name = null): void
+    public static function assertIsObject(mixed $value, ?string $varName = null): void
     {
-        Validator::assertIsType($value, [Type::OBJECT], Ex\NotObjectException::class, $var_name);
+        Validator::assertIsType($value, [Type::OBJECT], Ex\NotObjectException::class, $varName);
     }
 
     /**
      * Checks if given $cls_cls_or_obj is either an object or name of existing class.
      *
-     * @param string|object $cls_or_obj
-     * @param string|null   $var_name Optional name of the variable the content is being asserted for (used to
+     * @param string|object $classOrObject
+     * @param string|null   $varName  Optional name of the variable the content is being asserted for (used to
      *                                build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsObjectOrExistingClass(string|object $cls_or_obj,
-                                                         ?string       $var_name = null): void
+    public static function assertIsObjectOrExistingClass(string|object $classOrObject,
+                                                         ?string       $varName = null): void
     {
         // FIXME Should throw more specific exception instead of Ex\NotObjectException::class
-        Validator::assertIsType($cls_or_obj, [Type::EXISTING_CLASS,
-                                              Type::OBJECT,
-        ], Ex\NotObjectException::class, $var_name);
+        Validator::assertIsType($classOrObject, [Type::EXISTING_CLASS,
+                                                 Type::OBJECT,
+        ], Ex\NotObjectException::class, $varName);
     }
 
     /**
      * Checks if given $val is of type string
      *
      * @param mixed       $value    Variable to be asserted.
-     * @param string|null $var_name Optional name of the variable the content is being asserted for (used to
+     * @param string|null $varName  Optional name of the variable the content is being asserted for (used to
      *                              build error message only).
      *
      * @throws Ex\InvalidTypeExceptionContract
      */
-    public static function assertIsString(mixed $value, ?string $var_name = null): void
+    public static function assertIsString(mixed $value, ?string $varName = null): void
     {
-        Validator::assertIsType($value, [Type::STRING], Ex\NotStringException::class, $var_name);
+        Validator::assertIsType($value, [Type::STRING], Ex\NotStringException::class, $varName);
     }
 
     /* **************************************************************************************************** */
