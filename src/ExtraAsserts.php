@@ -54,13 +54,16 @@ class ExtraAsserts
     /**s
      * Asserts array has ALL the required keys
      *
-     * @param array $required_keys list of required array keys
-     * @param array $array         array to check
+     * @param array   $requiredKeys list of required array keys
+     * @param array   $array        array to check
+     * @param ?string $message      Optional custom message to display on failure.
      */
-    public static function assertArrayHasKeys(array $required_keys, array $array): void
+    public static function assertArrayHasKeys(array   $requiredKeys,
+                                              array   $array,
+                                              ?string $message = null): void
     {
-        foreach ($required_keys as $key) {
-            Assert::assertArrayHasKey($key, $array);
+        foreach ($requiredKeys as $key) {
+            Assert::assertArrayHasKey($key, $array, $message ?? '');
         }
     }
 
