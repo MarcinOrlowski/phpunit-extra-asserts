@@ -68,35 +68,35 @@ class ExtraAsserts
     }
 
     /**
-     * Asserts $arrayA equals $arrayB which means both array contain the same content, yet the order of data
+     * Asserts $actual equals $expected which means both array contain the same content, yet the order of data
      * is not taken into account. For example ['foo','bar'] equals ['bar','foo'] as content is the same
      * ['key1'=>'foo','key2'=>'bar'] differs from ['key1'=>'bar','key2'=>'foo'].
      *
-     * @param array $array_a Array A to compare content of
-     * @param array $array_b Array B to compare content of
+     * @param array   $expected Expected content of the array.
+     * @param array   $actual   Actual content of the array to compare with expectations.
+     * @param ?string $message  Optional custom message to display on failure.
      */
-    public static function assertArrayEquals(array $array_a, array $array_b): void
+    public static function assertArrayEquals(array $expected, array $actual, ?string $message = null): void
     {
-        static::assertArraysHaveDifferences(0, $array_a, $array_b);
+        static::assertArraysHaveDifferences(0, $expected, $actual, $message);
     }
 
     /**
-     * Asserts two arrays differ by exactly given number of elements.
+     * Asserts two arrays differ by exactly given $count number of elements.
      *
-     * Asserts $arrayA equals $arrayB which means both array contain the same content, yet the order of data
-     * is not taken into account. For example ['foo','bar'] equals ['bar','foo'] as content is the same
-     * ['key1'=>'foo','key2'=>'bar'] differs from ['key1'=>'bar','key2'=>'foo'].
-     *
-     * @param int   $expected Expected number of differences between arrays
-     * @param array $array_a  Array A to compare content of
-     * @param array $array_b  Array B to compare content of
+     * @param int     $count    Expected number of differences between arrays
+     * @param array   $expected Expected content of the array.
+     * @param array   $actual   Actual content of the array to compare with expectations.
+     * @param ?string $message  Optional custom message to display on failure.
      */
-    public static function assertArraysHaveDifferences(int   $expected,
-                                                       array $array_a, array $array_b): void
+    public static function assertArraysHaveDifferences(int     $count,
+                                                       array   $expected,
+                                                       array   $actual,
+                                                       ?string $message = null): void
     {
-        $diff_array_count = static::arrayRecursiveDiffCount($array_a, $array_b);
-        $msg = "Expected {$expected} differences, found {$diff_array_count}";
-        Assert::assertEquals($expected, $diff_array_count, $msg);
+        $diffCount = static::arrayRecursiveDiffCount($expected, $actual);
+        $msg = $message ?? "Expected {$count} differences, found {$diffCount}";
+        Assert::assertEquals($count, $diffCount, $msg);
     }
 
     /**
