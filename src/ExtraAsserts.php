@@ -201,13 +201,13 @@ class ExtraAsserts
     /**
      * Prints content of given array in compacted form.
      *
-     * @param array $array  Array to print
-     * @param int   $indent Number of indent blocks (2 spaces per block) to add for each nest level
+     * @param array  $array       Array to print
+     * @param int    $indent      Number of indent blocks to add for each nest level
+     * @param string $indentBlock String to use for indenting.
      */
-    public static function printArray(array $array, int $indent = 0): void
+    public static function printArray(array $array, int $indent = 0, string $indentBlock = '  '): void
     {
-        $indent_block = '  ';
-        $i = \str_repeat($indent_block, $indent + 1);
+        $i = \str_repeat($indentBlock, $indent + 1);
 
         foreach ($array as $k => $v) {
             if (\is_array($v)) {
