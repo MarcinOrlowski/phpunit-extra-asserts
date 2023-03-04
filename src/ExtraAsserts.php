@@ -32,6 +32,25 @@ class ExtraAsserts
         Assert::assertEquals($expectedValue, $array[ $key ], $msg);
     }
 
+    /**
+     * Asserts array has specified key and it's value is according to expectations.
+     *
+     * @param string  $expectedKey   Key to look for
+     * @param mixed   $expectedValue Value expected to be found ad $key element.
+     * @param array   $array         Array to inspect.
+     * @param ?string $message       Optional custom message to display on failure.
+     */
+    public static function assertArrayHasKeyValue(string  $expectedKey,
+                                                  mixed   $expectedValue,
+                                                  array   $array,
+                                                  ?string $message = null): void
+    {
+        $msg = $message ?? "Key not found: {$expectedKey}";
+        Assert::assertArrayHasKey($expectedKey, $array, $msg);
+        $msg = $message ?? "Value for key '{$expectedKey}' is not as expected.";
+        Assert::assertEquals($expectedValue, $array[ $expectedKey ], $msg);
+    }
+
     /**s
      * Asserts array has ALL the required keys
      *
