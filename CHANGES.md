@@ -2,6 +2,10 @@
 
 ## CHANGELOG ##
 
+* 5.3.0 ()
+  * Requires PHPUnit 10.0+
+  * PHPUnit is now runtime dependency, not --dev.
+
 * 5.2.0 (2023-03-04)
   * Most asserts now accepts optional message string as PHPUnit's.
   * Added `assertArrayHasKeyValue()`
